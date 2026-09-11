@@ -115,6 +115,13 @@ go run ./cmd/sv-license sign \
 ./sv-print -license ./license.key
 ```
 
+## Integration
+
+Full API reference, receipt schema, WebSocket events, error codes, and
+client examples are in the [Integration Guide](./docs/integration.md).
+
+Client libraries are in [`examples/`](./examples/) (JavaScript, Python, PHP).
+
 ## Development
 
 The workflow follows the project conventions recorded in memory:

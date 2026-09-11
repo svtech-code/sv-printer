@@ -13,6 +13,12 @@ This directory holds supporting project documentation.
 See [`../README.md`](../README.md) for build instructions, architecture overview,
 and the local API contract.
 
+## Integration
+
+See [`integration.md`](./integration.md) for full API documentation, receipt
+schema, WebSocket events, error codes, and client examples (JavaScript,
+Python, PHP).
+
 ## Licensing
 
 See [`licensing.md`](./licensing.md) for the freemium model, gated features, and
