@@ -1,0 +1,30 @@
+# Build artifacts
+/sv-print
+/sv-print.exe
+*.exe
+*.test
+*.out
+
+# Runtime logs
+*.log
+sv-print.log
+
+# Test and coverage
+coverage.out
+coverage.html
+
+# OS
+.DS_Store
+Thumbs.db
+
+# License private keys (never commit)
+*.priv
+sv-license.priv
+.sv-license.priv
+
+# IA
+.sv-memory/
+.opencode/
+.agents/
+AGENTS.md
+.sv-memoryignore
