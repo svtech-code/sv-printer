@@ -19,13 +19,13 @@ func TestRunCLI(t *testing.T) {
 			name:    "version command",
 			args:    []string{"version"},
 			wantErr: false,
-			wantOut: "SV Print Agent v0.1.0\n",
+			wantOut: "SV Print v0.1.0\n",
 		},
 		{
 			name:    "status command",
 			args:    []string{"status"},
 			wantErr: false,
-			wantOut: "SV Print Agent status: OK\n",
+			wantOut: "SV Print status: OK\n",
 		},
 		{
 			name:    "printers command with no printers",

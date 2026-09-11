@@ -1,6 +1,6 @@
 # Licensing
 
-SV Print Agent uses a **freemium** model with offline, Ed25519-signed licenses.
+SV Print uses a **freemium** model with offline, Ed25519-signed licenses.
 
 ## Modes
 

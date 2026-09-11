@@ -1,4 +1,4 @@
-# SV Print Agent
+# SV Print
 
 > **Versión canónica:** la versión canónica de esta especificación es
 > [`spect.md`](./spect.md) (en inglés). Este documento es un espejo en español
@@ -6,7 +6,7 @@
 
 ## 1. Descripción general
 
-**SV Print Agent** es un agente local multiplataforma desarrollado en **Go**, cuyo objetivo es permitir que aplicaciones web se comuniquen con impresoras térmicas conectadas al equipo del usuario.
+**SV Print** es un agente local multiplataforma desarrollado en **Go**, cuyo objetivo es permitir que aplicaciones web se comuniquen con impresoras térmicas conectadas al equipo del usuario.
 
 El agente actúa como puente entre:
 
@@ -15,7 +15,7 @@ Aplicación Web
       │
       │ HTTP / WebSocket
       ▼
-SV Print Agent
+SV Print
       │
       ├── USB
       ├── Serial
@@ -781,7 +781,7 @@ Respuesta:
 
 ```json
 {
-  "name": "SV Print Agent",
+  "name": "sv-print",
   "version": "0.1.0",
   "platform": "darwin",
   "architecture": "arm64"
@@ -931,7 +931,7 @@ Durante la primera inicialización se debe generar un token.
 Ejemplo:
 
 ```text
-SV Print Agent initialized.
+SV Print initialized.
 
 Agent ID:
 agent_xxxxxxxxx
@@ -1051,7 +1051,7 @@ sv-print printers
 Resultado:
 
 ```text
-SV Print Agent
+SV Print
 
 Impresoras
 ────────────────────────────────────────────
@@ -1489,7 +1489,7 @@ Los cambios compatibles deben mantenerse dentro de la misma versión de API.
 El flujo esperado para un usuario será:
 
 ```text
-1. Instalar SV Print Agent
+1. Instalar SV Print
              │
              ▼
 2. Agent inicia automáticamente
@@ -1513,7 +1513,7 @@ El flujo esperado para un usuario será:
 8. Aplicación envía trabajo
              │
              ▼
-9. SV Print Agent procesa cola
+9. SV Print procesa cola
              │
              ▼
 10. Agent envía ESC/POS

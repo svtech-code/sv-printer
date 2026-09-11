@@ -1,11 +1,11 @@
-# SV Print Agent
+# SV Print
 
 > **Canonical version:** This document is the canonical specification. The Spanish
 > version lives in [`spect_ES.md`](./spect_ES.md) and is a mirror for reference only.
 
 ## 1. Overview
 
-**SV Print Agent** is a cross-platform local agent developed in **Go**, whose goal is to allow web applications to communicate with thermal printers connected to the user's machine.
+**SV Print** is a cross-platform local agent developed in **Go**, whose goal is to allow web applications to communicate with thermal printers connected to the user's machine.
 
 The agent acts as a bridge between:
 
@@ -14,7 +14,7 @@ Web Application
       │
       │ HTTP / WebSocket
       ▼
-SV Print Agent
+SV Print
       │
       ├── USB
       ├── Serial
@@ -780,7 +780,7 @@ Response:
 
 ```json
 {
-  "name": "SV Print Agent",
+  "name": "sv-print",
   "version": "0.1.0",
   "platform": "darwin",
   "architecture": "arm64"
@@ -930,7 +930,7 @@ During the first initialization a token must be generated.
 Example:
 
 ```text
-SV Print Agent initialized.
+SV Print initialized.
 
 Agent ID:
 agent_xxxxxxxxx
@@ -1050,7 +1050,7 @@ sv-print printers
 Result:
 
 ```text
-SV Print Agent
+SV Print
 
 Printers
 ────────────────────────────────────────────
@@ -1488,7 +1488,7 @@ Compatible changes must remain within the same API version.
 The expected flow for a user will be:
 
 ```text
-1. Install SV Print Agent
+1. Install SV Print
              │
              ▼
 2. Agent starts automatically
@@ -1512,7 +1512,7 @@ The expected flow for a user will be:
 8. Application sends job
              │
              ▼
-9. SV Print Agent processes queue
+9. SV Print processes queue
              │
              ▼
 10. Agent sends ESC/POS

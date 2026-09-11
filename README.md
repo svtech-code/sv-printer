@@ -1,11 +1,11 @@
-# SV Print Agent
+# SV Print
 
 Cross-platform local agent written in **Go** that lets web applications print to
 thermal printers connected to the user's machine — without relying on the
 browser's print dialog.
 
 ```
-Web Application  ── HTTP/WebSocket ──>  SV Print Agent  ──>  Thermal printer
+Web Application  ── HTTP/WebSocket ──>  SV Print  ──>  Thermal printer
                                                              (USB / Serial / TCP)
 ```
 
@@ -74,7 +74,7 @@ Errors use structured codes and a JSON envelope: `{"error":{"code","message"}}`.
 
 ## Licensing
 
-SV Print Agent uses a freemium model:
+SV Print uses a freemium model:
 
 | Mode | Activation | What you get |
 |---|---|---|

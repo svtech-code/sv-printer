@@ -57,10 +57,10 @@ func main() {
 func runCLI(ctx context.Context, args []string, stdout io.Writer) error {
 	switch args[0] {
 	case "version":
-		fmt.Fprintf(stdout, "SV Print Agent v%s\n", Version)
+		fmt.Fprintf(stdout, "SV Print v%s\n", Version)
 		return nil
 	case "status":
-		fmt.Fprintln(stdout, "SV Print Agent status: OK")
+		fmt.Fprintln(stdout, "SV Print status: OK")
 		return nil
 	case "printers":
 		cfg, err := config.Load(args[1:])
@@ -71,7 +71,7 @@ func runCLI(ctx context.Context, args []string, stdout io.Writer) error {
 			fmt.Fprintln(stdout, "No printers configured yet.")
 			return nil
 		}
-		fmt.Fprintln(stdout, "SV Print Agent")
+		fmt.Fprintln(stdout, "SV Print")
 		fmt.Fprintln(stdout)
 		fmt.Fprintln(stdout, "ID\tNAME\tADDRESS")
 		for _, p := range cfg.Printers {
@@ -132,7 +132,7 @@ func runCLI(ctx context.Context, args []string, stdout io.Writer) error {
 		doc := receipt.Document{
 			Cut: true,
 			Lines: []receipt.Line{
-				{Text: "SV Print Agent", Style: receipt.Style{Bold: true, Align: "center"}},
+				{Text: "SV Print", Style: receipt.Style{Bold: true, Align: "center"}},
 				{Text: "Test receipt"},
 			},
 		}
@@ -234,7 +234,7 @@ func runAgent(ctx context.Context, args []string, stdout io.Writer) error {
 	worker := printing.NewWorker(queue, transportFactory(cfg), bus)
 
 	if cfg.TokenGenerated {
-		fmt.Fprintf(stdout, "SV Print Agent initialized.\n\nToken:\n%s\n\n", cfg.Token)
+		fmt.Fprintf(stdout, "SV Print initialized.\n\nToken:\n%s\n\n", cfg.Token)
 		if err := config.Save(cfg); err != nil {
 			slog.Warn("failed to persist config", "error", err.Error())
 		}

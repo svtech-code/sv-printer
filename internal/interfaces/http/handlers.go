@@ -78,7 +78,7 @@ func (a *API) InfoHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	resp := map[string]any{
-		"name":         "SV Print Agent",
+		"name":         "sv-print",
 		"version":      a.version,
 		"platform":     runtime.GOOS,
 		"architecture": runtime.GOARCH,
@@ -163,7 +163,7 @@ func (a *API) TestPrinterHandler(w http.ResponseWriter, r *http.Request) {
 	doc := receipt.Document{
 		Cut: true,
 		Lines: []receipt.Line{
-			{Text: "SV Print Agent", Style: receipt.Style{Bold: true, Align: "center"}},
+			{Text: "SV Print", Style: receipt.Style{Bold: true, Align: "center"}},
 			{Text: "Test receipt"},
 		},
 	}

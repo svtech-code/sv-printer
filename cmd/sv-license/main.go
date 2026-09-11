@@ -29,7 +29,7 @@ func main() {
 }
 
 func usage() {
-	fmt.Fprintln(os.Stderr, `sv-license — issue SV Print licenses
+	fmt.Fprintln(os.Stderr, `sv-license — issue sv-print licenses
 
 Usage:
   sv-license keygen
