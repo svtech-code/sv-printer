@@ -47,6 +47,37 @@ func TestEventsHandler(t *testing.T) {
 	}
 }
 
+func TestEventsHandlerWithQueryToken(t *testing.T) {
+	bus := events.NewBus()
+	api := NewAPI(printing.NewInMemoryQueue(), discovery.NewRegistry(), "1.0.0", bus)
+
+	handler := WithAuth("test-token", http.HandlerFunc(api.EventsHandler))
+
+	srv := httptest.NewServer(handler)
+	defer srv.Close()
+
+	wsURL := "ws" + strings.TrimPrefix(srv.URL, "http") + "?token=test-token"
+
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	conn, _, err := websocket.Dial(ctx, wsURL, nil)
+	if err != nil {
+		t.Fatalf("Dial with ?token=: %v", err)
+	}
+	defer conn.Close(websocket.StatusNormalClosure, "")
+
+	bus.Publish(events.NewEvent(events.AgentStatus, map[string]any{"status": "started"}))
+
+	_, data, err := conn.Read(ctx)
+	if err != nil {
+		t.Fatalf("Read: %v", err)
+	}
+	if !strings.Contains(string(data), `"event":"agent.status"`) {
+		t.Errorf("received %q, want agent.status event", data)
+	}
+}
+
 func TestEventsHandlerWithoutBus(t *testing.T) {
 	api := NewAPI(printing.NewInMemoryQueue(), discovery.NewRegistry(), "1.0.0")
 

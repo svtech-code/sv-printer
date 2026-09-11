@@ -1,6 +1,7 @@
 package http
 
 import (
+	"crypto/subtle"
 	"net/http"
 	"strings"
 
@@ -9,15 +10,15 @@ import (
 
 func WithAuth(token string, next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		authHeader := r.Header.Get("Authorization")
-		if authHeader == "" || !strings.HasPrefix(authHeader, "Bearer ") {
-			s, c, m := mapDomainError(domainErrors.ErrUnauthorized)
-			writeError(w, s, c, m)
-			return
+		var reqToken string
+
+		if authHeader := r.Header.Get("Authorization"); strings.HasPrefix(authHeader, "Bearer ") {
+			reqToken = strings.TrimPrefix(authHeader, "Bearer ")
+		} else if qp := r.URL.Query().Get("token"); qp != "" {
+			reqToken = qp
 		}
 
-		reqToken := strings.TrimPrefix(authHeader, "Bearer ")
-		if reqToken != token {
+		if reqToken == "" || subtle.ConstantTimeCompare([]byte(reqToken), []byte(token)) != 1 {
 			s, c, m := mapDomainError(domainErrors.ErrUnauthorized)
 			writeError(w, s, c, m)
 			return

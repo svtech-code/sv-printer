@@ -41,18 +41,60 @@ func TestWithAuth(t *testing.T) {
 		w.WriteHeader(http.StatusOK)
 	}))
 
-	req, _ := http.NewRequest("GET", "/", nil)
-	rr := httptest.NewRecorder()
-	handler.ServeHTTP(rr, req)
-	if rr.Code != http.StatusUnauthorized {
-		t.Errorf("expected 401, got %v", rr.Code)
-	}
+	t.Run("missing auth", func(t *testing.T) {
+		req, _ := http.NewRequest("GET", "/", nil)
+		rr := httptest.NewRecorder()
+		handler.ServeHTTP(rr, req)
+		if rr.Code != http.StatusUnauthorized {
+			t.Errorf("expected 401, got %v", rr.Code)
+		}
+	})
 
-	req, _ = http.NewRequest("GET", "/", nil)
-	req.Header.Set("Authorization", "Bearer secret")
-	rr = httptest.NewRecorder()
-	handler.ServeHTTP(rr, req)
-	if rr.Code != http.StatusOK {
-		t.Errorf("expected 200, got %v", rr.Code)
-	}
+	t.Run("wrong header", func(t *testing.T) {
+		req, _ := http.NewRequest("GET", "/", nil)
+		req.Header.Set("Authorization", "Bearer wrong")
+		rr := httptest.NewRecorder()
+		handler.ServeHTTP(rr, req)
+		if rr.Code != http.StatusUnauthorized {
+			t.Errorf("expected 401, got %v", rr.Code)
+		}
+	})
+
+	t.Run("correct header", func(t *testing.T) {
+		req, _ := http.NewRequest("GET", "/", nil)
+		req.Header.Set("Authorization", "Bearer secret")
+		rr := httptest.NewRecorder()
+		handler.ServeHTTP(rr, req)
+		if rr.Code != http.StatusOK {
+			t.Errorf("expected 200, got %v", rr.Code)
+		}
+	})
+
+	t.Run("correct query param", func(t *testing.T) {
+		req, _ := http.NewRequest("GET", "/?token=secret", nil)
+		rr := httptest.NewRecorder()
+		handler.ServeHTTP(rr, req)
+		if rr.Code != http.StatusOK {
+			t.Errorf("expected 200, got %v", rr.Code)
+		}
+	})
+
+	t.Run("wrong query param", func(t *testing.T) {
+		req, _ := http.NewRequest("GET", "/?token=wrong", nil)
+		rr := httptest.NewRecorder()
+		handler.ServeHTTP(rr, req)
+		if rr.Code != http.StatusUnauthorized {
+			t.Errorf("expected 401, got %v", rr.Code)
+		}
+	})
+
+	t.Run("header takes precedence over query", func(t *testing.T) {
+		req, _ := http.NewRequest("GET", "/?token=wrong", nil)
+		req.Header.Set("Authorization", "Bearer secret")
+		rr := httptest.NewRecorder()
+		handler.ServeHTTP(rr, req)
+		if rr.Code != http.StatusOK {
+			t.Errorf("expected 200, got %v", rr.Code)
+		}
+	})
 }
