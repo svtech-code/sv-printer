@@ -34,7 +34,7 @@ func TestLoadFlags(t *testing.T) {
 		"-host", "0.0.0.0",
 		"-port", "9000",
 		"-token", "abc123",
-		"-origin", "https://app.svtech.cl",
+		"-origin", "https://svtech.cl",
 		"-origin", "https://localhost:3000",
 		"-max-payload", "1024",
 		"-printer", "Caja 1@192.168.1.100:9100",
@@ -135,7 +135,7 @@ func TestSaveAndLoad(t *testing.T) {
 		Host:           "127.0.0.1",
 		Port:           9000,
 		Token:          "persisted-token",
-		AllowedOrigins: []string{"https://app.svtech.cl"},
+		AllowedOrigins: []string{"https://svtech.cl"},
 		MaxPayloadSize: 2048,
 		Printers: []ManualPrinter{
 			{ID: "net-1.2.3.4:9100", Name: "Caja", Address: "1.2.3.4:9100", Protocol: "escpos"},

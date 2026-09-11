@@ -968,7 +968,7 @@ There must be a list of authorized origins.
 Example:
 
 ```text
-https://app.svtech.cl
+https://svtech.cl
 https://localhost:3000
 ```
 
@@ -1126,7 +1126,7 @@ server:
 
 security:
   allowed_origins:
-    - https://app.svtech.cl
+    - https://svtech.cl
 
 printers:
   - id: usb-1234-5678
