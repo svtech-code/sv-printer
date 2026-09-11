@@ -74,6 +74,13 @@ Errors use structured codes and a JSON envelope: `{"error":{"code","message"}}`.
 
 ## Licensing
 
+SV Print is licensed under the [Business Source License 1.1](./LICENSE)
+(BSL 1.1). You may use it freely for your own internal business purposes,
+including printing on your own printers. On **2030-09-11** the Licensed Work
+converts to the [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).
+
+### Freemium tiers
+
 SV Print uses a freemium model:
 
 | Mode | Activation | What you get |
