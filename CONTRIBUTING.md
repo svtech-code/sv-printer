@@ -2,7 +2,7 @@
 
 Thank you for your interest in contributing to **SV Print**! This guide outlines the workflow and standards.
 
-> **Just want to install SV Print?** See the [Integration Guide](./docs/integration.md) for build instructions.
+> **Just want to install SV Print?** See the [Integration Guide](./documentation/integration.md) for build instructions.
 
 ---
 
@@ -13,7 +13,7 @@ We follow a simple feature-branch workflow:
 1. **Branch Naming:** Create a branch from `main` using descriptive prefixes:
    - `feat/feature-name` for new features.
    - `fix/bug-name` for bug fixes.
-   - `docs/doc-name` for documentation updates.
+   - `documentation/doc-name` for documentation updates.
    - `refactor/refactor-name` for code cleanup.
 2. **Pull Requests:** Once your changes are ready and tested:
    - Push your branch to GitHub.

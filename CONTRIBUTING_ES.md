@@ -2,7 +2,7 @@
 
 Gracias por tu interés en contribuir a **SV Print**. Esta guía describe el flujo de trabajo y los estándares.
 
-> **¿Solo quieres instalar SV Print?** Consulta la [Guía de Integración](./docs/integration_ES.md) para instrucciones de compilación.
+> **¿Solo quieres instalar SV Print?** Consulta la [Guía de Integración](./documentation/integration_ES.md) para instrucciones de compilación.
 
 ---
 
@@ -13,7 +13,7 @@ Seguimos un flujo de trabajo simple con ramas de features:
 1. **Nomenclatura de ramas:** crea una rama desde `main` con prefijos descriptivos:
    - `feat/nombre-feature` para nuevas features.
    - `fix/nombre-bug` para corrección de bugs.
-   - `docs/nombre-doc` para actualizaciones de documentación.
+   - `documentation/nombre-doc` para actualizaciones de documentación.
    - `refactor/nombre-refactor` para limpieza de código.
 2. **Pull Requests:** cuando tus cambios estén listos y probados:
    - Empuja tu rama a GitHub.

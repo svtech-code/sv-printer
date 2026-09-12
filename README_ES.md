@@ -27,7 +27,7 @@
 
 ## Enlaces Rápidos
 
-> **¿Nuevo en SV Print?** Consulta la [Guía de Integración](./docs/integration_ES.md) ([English](./docs/integration.md)), la [Guía de Licencias](./docs/licensing_ES.md) o los [Ejemplos de Clientes](./examples/) (JavaScript, Python, PHP).
+> **¿Nuevo en SV Print?** Consulta la [Guía de Integración](./documentation/integration_ES.md) ([English](./documentation/integration.md)), la [Guía de Licencias](./documentation/licensing_ES.md) o los [Ejemplos de Clientes](./examples/) (JavaScript, Python, PHP).
 >
 > La especificación canónica vive en [`documentation/spect_ES.md`](./documentation/spect_ES.md) ([English](./documentation/spect.md)).
 
@@ -146,8 +146,8 @@ se vincula a `0.0.0.0` por defecto. Las peticiones requieren `Authorization: Bea
 Los errores usan códigos estructurados y un envoltorio JSON: `{"error":{"code","message"}}`.
 
 La referencia completa de la API, el esquema de recibos, los eventos WebSocket y los
-códigos de error están en la [Guía de Integración](./docs/integration_ES.md)
-([English](./docs/integration.md)).
+códigos de error están en la [Guía de Integración](./documentation/integration_ES.md)
+([English](./documentation/integration.md)).
 
 ---
 
@@ -165,7 +165,7 @@ SV Print usa un modelo **freemium** bajo la [Licencia Comercial 1.1](./LICENSE)
 **Funciones pro** (requieren licencia): `POST /api/v1/print` (ESC/POS raw) y
 `GET /api/v1/events` (eventos WebSocket).
 
-Consulta [`docs/licensing_ES.md`](./docs/licensing_ES.md) ([English](./docs/licensing.md))
+Consulta [`documentation/licensing_ES.md`](./documentation/licensing_ES.md) ([English](./documentation/licensing.md))
 para la guía completa de emisión e instalación de licencias.
 
 ```bash
@@ -184,7 +184,7 @@ SV_LICENSE_KEY=<hex> go run ./cmd/sv-license sign \
 
 La referencia completa de la API, el esquema de recibos, los eventos WebSocket,
 los códigos de error y los ejemplos de clientes están en la
-[Guía de Integración](./docs/integration_ES.md) ([English](./docs/integration.md)).
+[Guía de Integración](./documentation/integration_ES.md) ([English](./documentation/integration.md)).
 
 Las bibliotecas de clientes están en [`examples/`](./examples/) (JavaScript, Python, PHP).
 
@@ -223,6 +223,6 @@ MVP temprano. La especificación es la fuente de verdad; consulta la sección Ro
 ## Licencia
 
 SV Print se distribuye bajo una licencia freemium (ver [Licencia](#licencia)
-arriba y [`docs/licensing_ES.md`](./docs/licensing_ES.md)). El código fuente es
+arriba y [`documentation/licensing_ES.md`](./documentation/licensing_ES.md)). El código fuente es
 proprietario; consulta al propietario del repositorio para términos de licencia
 y distribución.

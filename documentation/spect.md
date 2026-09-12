@@ -191,7 +191,7 @@ sv-print/
 ├── pkg/
 │   └── escpos/
 │
-├── docs/
+├── documentation/
 ├── scripts/
 ├── test/
 │

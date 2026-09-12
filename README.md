@@ -27,7 +27,7 @@
 
 ## Quick Links
 
-> **New to SV Print?** Check out the full [Integration Guide](./docs/integration.md) ([Español](./docs/integration_ES.md)), the [Licensing Guide](./docs/licensing.md), or the [Client Examples](./examples/) (JavaScript, Python, PHP).
+> **New to SV Print?** Check out the full [Integration Guide](./documentation/integration.md) ([Español](./documentation/integration_ES.md)), the [Licensing Guide](./documentation/licensing.md), or the [Client Examples](./examples/) (JavaScript, Python, PHP).
 >
 > The canonical specification lives in [`documentation/spect.md`](./documentation/spect.md) ([Español](./documentation/spect_ES.md)).
 
@@ -146,7 +146,7 @@ binds to `0.0.0.0` by default. Requests require `Authorization: Bearer <token>`.
 Errors use structured codes and a JSON envelope: `{"error":{"code","message"}}`.
 
 Full API reference, receipt schema, WebSocket events, and error codes are in the
-[Integration Guide](./docs/integration.md) ([Español](./docs/integration_ES.md)).
+[Integration Guide](./documentation/integration.md) ([Español](./documentation/integration_ES.md)).
 
 ---
 
@@ -164,7 +164,7 @@ SV Print uses a **freemium** model under the [Business Source License 1.1](./LIC
 **Pro features** (require a license): `POST /api/v1/print` (raw ESC/POS) and
 `GET /api/v1/events` (WebSocket events).
 
-See [`docs/licensing.md`](./docs/licensing.md) ([Español](./docs/licensing_ES.md)) for
+See [`documentation/licensing.md`](./documentation/licensing.md) ([Español](./documentation/licensing_ES.md)) for
 the full guide on issuing and installing licenses.
 
 ```bash
@@ -182,8 +182,8 @@ SV_LICENSE_KEY=<hex> go run ./cmd/sv-license sign \
 ## Integration
 
 Full API reference, receipt schema, WebSocket events, error codes, and
-client examples are in the [Integration Guide](./docs/integration.md)
-([Español](./docs/integration_ES.md)).
+client examples are in the [Integration Guide](./documentation/integration.md)
+([Español](./documentation/integration_ES.md)).
 
 Client libraries are in [`examples/`](./examples/) (JavaScript, Python, PHP).
 
@@ -222,5 +222,5 @@ Early MVP. The spec is the source of truth; see the Roadmap section
 ## License
 
 SV Print is distributed under a freemium license (see [Licensing](#licensing)
-above and [`docs/licensing.md`](./docs/licensing.md)). The source is proprietary;
+above and [`documentation/licensing.md`](./documentation/licensing.md)). The source is proprietary;
 see the repository owner for licensing and distribution terms.

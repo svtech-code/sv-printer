@@ -59,5 +59,5 @@ await sv.printReceipt(printers[0].id, {
 
 ## See also
 
-- [Integration Guide](../../docs/integration.md)
-- [API Reference](../../docs/integration.md#quickstart-curl)
+- [Integration Guide](../../documentation/integration.md)
+- [API Reference](../../documentation/integration.md#quickstart-curl)
