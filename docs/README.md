@@ -11,18 +11,18 @@ This directory holds supporting project documentation.
 ## Getting started
 
 See [`../README.md`](../README.md) for build instructions, architecture overview,
-and the local API contract.
+and the local API contract. Also available in [Español](../README_ES.md).
 
 ## Integration
 
-See [`integration.md`](./integration.md) for full API documentation, receipt
-schema, WebSocket events, error codes, and client examples (JavaScript,
-Python, PHP).
+See [`integration.md`](./integration.md) ([Español](./integration_ES.md)) for full
+API documentation, receipt schema, WebSocket events, error codes, and client
+examples (JavaScript, Python, PHP).
 
 ## Licensing
 
-See [`licensing.md`](./licensing.md) for the freemium model, gated features, and
-how to issue and install licenses.
+See [`licensing.md`](./licensing.md) ([Español](./licensing_ES.md)) for the
+freemium model, gated features, and how to issue and install licenses.
 
 ## Memory
 
