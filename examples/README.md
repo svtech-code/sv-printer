@@ -8,4 +8,4 @@ Ready-to-use client libraries for integrating SV Print into your application.
 | Python | [`python/sv_print_client.py`](./python/sv_print_client.py) | `requests` |
 | PHP | [`php/sv-print-client.php`](./php/sv-print-client.php) | `curl` extension |
 
-See the [Integration Guide](../docs/integration.md) for full API documentation.
+See the [Integration Guide](../docs/integration.md) ([Español](../docs/integration_ES.md)) for full API documentation.

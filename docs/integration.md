@@ -1,3 +1,5 @@
+> **Language:** English | [Español](integration_ES.md)
+
 # Integration Guide
 
 How to run SV Print, configure it, and integrate it with your web application

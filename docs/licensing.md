@@ -1,3 +1,5 @@
+> **Language:** English | [Español](licensing_ES.md)
+
 # Licensing
 
 SV Print uses a **freemium** model with offline, Ed25519-signed licenses.
