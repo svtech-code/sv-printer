@@ -22,6 +22,9 @@ func (a *API) EventsHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	ch, cancel := a.bus.Subscribe()
+	defer cancel()
+
 	c, err := websocket.Accept(w, r, &websocket.AcceptOptions{InsecureSkipVerify: true})
 	if err != nil {
 		return
@@ -29,9 +32,6 @@ func (a *API) EventsHandler(w http.ResponseWriter, r *http.Request) {
 	defer c.Close(websocket.StatusNormalClosure, "")
 
 	ctx := c.CloseRead(r.Context())
-
-	ch, cancel := a.bus.Subscribe()
-	defer cancel()
 
 	for {
 		select {
