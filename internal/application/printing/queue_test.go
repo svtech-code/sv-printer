@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"sv-print/internal/domain/job"
+	"sv-printer/internal/domain/job"
 )
 
 func TestInMemoryQueue(t *testing.T) {

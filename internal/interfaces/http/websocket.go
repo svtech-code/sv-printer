@@ -6,8 +6,8 @@ import (
 
 	"github.com/coder/websocket"
 
-	domainErrors "sv-print/internal/domain/errors"
-	"sv-print/internal/license"
+	domainErrors "sv-printer/internal/domain/errors"
+	"sv-printer/internal/license"
 )
 
 func (a *API) EventsHandler(w http.ResponseWriter, r *http.Request) {

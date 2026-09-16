@@ -4,9 +4,9 @@ import (
 	"context"
 	"time"
 
-	"sv-print/internal/application/events"
-	"sv-print/internal/domain/job"
-	"sv-print/internal/infrastructure/transport"
+	"sv-printer/internal/application/events"
+	"sv-printer/internal/domain/job"
+	"sv-printer/internal/infrastructure/transport"
 )
 
 type TransportFactory func(printerID string) (transport.PrinterTransport, error)

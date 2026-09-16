@@ -14,13 +14,13 @@ usando la API HTTP local.
 
 ```bash
 # Compilar
-go build -o sv-print ./cmd/sv-print
+go build -o sv-printer ./cmd/sv-printer
 
 # Ejecutar (auto-detecta impresoras, genera un token en la primera ejecución)
-./sv-print
+./sv-printer
 
 # O configurar manualmente
-./sv-print -token mysecret -port 9876 -printer "Caja 1@192.168.1.100:9100"
+./sv-printer -token mysecret -port 9876 -printer "Caja 1@192.168.1.100:9100"
 ```
 
 En la primera ejecución sin `-token`, SV Print genera uno y lo imprime en stdout.
@@ -40,22 +40,22 @@ Guárdalo — lo necesitarás para cada petición a la API.
 | `-config` | `SV_PRINT_CONFIG` | ruta de plataforma | Ruta del archivo de configuración |
 | `-license` | `SV_PRINT_LICENSE` | `license.key` junto a config | Ruta del archivo de licencia |
 
-El archivo de configuración es JSON (`sv-print config` muestra su ruta).
+El archivo de configuración es JSON (`sv-printer config` muestra su ruta).
 
 ### Subcomandos
 
 | Comando | Descripción |
 |---|---|
-| `sv-print version` | Mostrar versión |
-| `sv-print status` | Verificar estado del agente |
-| `sv-print printers` | Listar impresoras configuradas |
-| `sv-print config` | Mostrar configuración actual |
-| `sv-print discover` | Redescubrir impresoras |
-| `sv-print test <id-impresora>` | Enviar un recibo de prueba |
-| `sv-print print <id-impresora> <archivo.json>` | Imprimir un recibo estructurado desde un archivo JSON |
-| `sv-print logs` | Seguir archivo de log |
-| `sv-print doctor` | Ejecutar diagnósticos |
-| `sv-print device-id` | Mostrar huella del dispositivo (para vinculación de licencia) |
+| `sv-printer version` | Mostrar versión |
+| `sv-printer status` | Verificar estado del agente |
+| `sv-printer printers` | Listar impresoras configuradas |
+| `sv-printer config` | Mostrar configuración actual |
+| `sv-printer discover` | Redescubrir impresoras |
+| `sv-printer test <id-impresora>` | Enviar un recibo de prueba |
+| `sv-printer print <id-impresora> <archivo.json>` | Imprimir un recibo estructurado desde un archivo JSON |
+| `sv-printer logs` | Seguir archivo de log |
+| `sv-printer doctor` | Ejecutar diagnósticos |
+| `sv-printer device-id` | Mostrar huella del dispositivo (para vinculación de licencia) |
 
 ## Modelo de seguridad
 
@@ -275,18 +275,18 @@ Sin una licencia (modo trial):
 Para instalar una licencia:
 
 ```bash
-./sv-print -license ./license.key
+./sv-printer -license ./license.key
 ```
 
 ## Solución de problemas
 
 ```bash
 # Ejecutar diagnósticos
-sv-print doctor
+sv-printer doctor
 
 # Revisar logs
-sv-print logs
+sv-printer logs
 
 # Mostrar huella del dispositivo (para vinculación de licencia)
-sv-print device-id
+sv-printer device-id
 ```

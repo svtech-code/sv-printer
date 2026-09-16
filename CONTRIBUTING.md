@@ -47,7 +47,7 @@ Ensure Go 1.26+ is installed (see [`go.mod`](./go.mod)).
 
 ```bash
 # Build
-go build ./cmd/sv-print
+go build ./cmd/sv-printer
 
 # Run unit tests
 go test ./...

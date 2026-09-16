@@ -4,8 +4,8 @@ import (
 	"sync"
 	"time"
 
-	"sv-print/internal/deviceid"
-	"sv-print/internal/license"
+	"sv-printer/internal/deviceid"
+	"sv-printer/internal/license"
 )
 
 const (

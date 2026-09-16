@@ -14,13 +14,13 @@ using the local HTTP API.
 
 ```bash
 # Build
-go build -o sv-print ./cmd/sv-print
+go build -o sv-printer ./cmd/sv-printer
 
 # Run (auto-discovers printers, generates a token on first run)
-./sv-print
+./sv-printer
 
 # Or configure manually
-./sv-print -token mysecret -port 9876 -printer "Caja 1@192.168.1.100:9100"
+./sv-printer -token mysecret -port 9876 -printer "Caja 1@192.168.1.100:9100"
 ```
 
 On first run without `-token`, SV Print generates one and prints it to stdout.
@@ -40,22 +40,22 @@ Save it — you'll need it for every API call.
 | `-config` | `SV_PRINT_CONFIG` | platform path | Config file path |
 | `-license` | `SV_PRINT_LICENSE` | `license.key` next to config | License file path |
 
-The config file is JSON (`sv-print config` shows its path).
+The config file is JSON (`sv-printer config` shows its path).
 
 ### Subcommands
 
 | Command | Description |
 |---|---|
-| `sv-print version` | Print version |
-| `sv-print status` | Check agent status |
-| `sv-print printers` | List configured printers |
-| `sv-print config` | Show current config |
-| `sv-print discover` | Re-run printer discovery |
-| `sv-print test <printer-id>` | Send a test receipt |
-| `sv-print print <printer-id> <file.json>` | Print a structured receipt from a JSON file |
-| `sv-print logs` | Tail log file |
-| `sv-print doctor` | Run diagnostics |
-| `sv-print device-id` | Show device fingerprint (for license binding) |
+| `sv-printer version` | Print version |
+| `sv-printer status` | Check agent status |
+| `sv-printer printers` | List configured printers |
+| `sv-printer config` | Show current config |
+| `sv-printer discover` | Re-run printer discovery |
+| `sv-printer test <printer-id>` | Send a test receipt |
+| `sv-printer print <printer-id> <file.json>` | Print a structured receipt from a JSON file |
+| `sv-printer logs` | Tail log file |
+| `sv-printer doctor` | Run diagnostics |
+| `sv-printer device-id` | Show device fingerprint (for license binding) |
 
 ## Security model
 
@@ -272,18 +272,18 @@ Without a license (trial mode):
 To install a license:
 
 ```bash
-./sv-print -license ./license.key
+./sv-printer -license ./license.key
 ```
 
 ## Troubleshooting
 
 ```bash
 # Run diagnostics
-sv-print doctor
+sv-printer doctor
 
 # Check logs
-sv-print logs
+sv-printer logs
 
 # Show device fingerprint (for license binding)
-sv-print device-id
+sv-printer device-id
 ```

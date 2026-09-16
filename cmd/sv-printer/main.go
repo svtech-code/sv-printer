@@ -14,20 +14,21 @@ import (
 	"syscall"
 	"time"
 
-	"sv-print/internal/application/discovery"
-	"sv-print/internal/application/events"
-	"sv-print/internal/application/printing"
-	"sv-print/internal/config"
-	"sv-print/internal/deviceid"
-	domainErrors "sv-print/internal/domain/errors"
-	"sv-print/internal/domain/printer"
-	"sv-print/internal/infrastructure/network"
-	"sv-print/internal/infrastructure/serial"
-	"sv-print/internal/infrastructure/transport"
-	"sv-print/internal/infrastructure/usb"
-	apphttp "sv-print/internal/interfaces/http"
-	"sv-print/internal/licensing"
-	"sv-print/internal/receipt"
+	"sv-printer/internal/application/discovery"
+	"sv-printer/internal/application/events"
+	"sv-printer/internal/application/printing"
+	"sv-printer/internal/config"
+	"sv-printer/internal/deviceid"
+	domainErrors "sv-printer/internal/domain/errors"
+	"sv-printer/internal/domain/printer"
+	"sv-printer/internal/infrastructure/network"
+	"sv-printer/internal/infrastructure/serial"
+	"sv-printer/internal/infrastructure/system"
+	"sv-printer/internal/infrastructure/transport"
+	"sv-printer/internal/infrastructure/usb"
+	apphttp "sv-printer/internal/interfaces/http"
+	"sv-printer/internal/licensing"
+	"sv-printer/internal/receipt"
 )
 
 var Version = "0.1.0"
@@ -119,7 +120,7 @@ func runCLI(ctx context.Context, args []string, stdout io.Writer) error {
 		return nil
 	case "test":
 		if len(args) < 2 {
-			return fmt.Errorf("usage: sv-print test <printer-id>")
+			return fmt.Errorf("usage: sv-printer test <printer-id>")
 		}
 		cfg, err := config.Load(nil)
 		if err != nil {
@@ -143,7 +144,7 @@ func runCLI(ctx context.Context, args []string, stdout io.Writer) error {
 		return nil
 	case "print":
 		if len(args) < 3 {
-			return fmt.Errorf("usage: sv-print print <printer-id> <receipt.json>")
+			return fmt.Errorf("usage: sv-printer print <printer-id> <receipt.json>")
 		}
 		cfg, err := config.Load(nil)
 		if err != nil {
@@ -278,6 +279,8 @@ func registerManualPrinters(registry *discovery.Registry, cfg config.Config) {
 		conn := printer.ConnectionNetwork
 		if p.Connection == "serial" {
 			conn = printer.ConnectionSerial
+		} else if p.Connection == "system" {
+			conn = printer.ConnectionSystem
 		}
 		printers = append(printers, printer.Printer{
 			ID:         p.ID,
@@ -296,8 +299,10 @@ func registerManualPrinters(registry *discovery.Registry, cfg config.Config) {
 func buildRegistry(cfg config.Config) *discovery.Registry {
 	registry := discovery.NewRegistry()
 	registerManualPrinters(registry, cfg)
-	registry.Register(serial.NewDiscoverer())
+	// Hardware discoverers
 	registry.Register(usb.NewDiscoverer())
+	registry.Register(serial.NewDiscoverer())
+	registry.Register(system.NewDiscoverer())
 	return registry
 }
 
@@ -307,6 +312,9 @@ func transportFactory(cfg config.Config) printing.TransportFactory {
 			if p.ID == printerID {
 				if p.Connection == "serial" {
 					return serial.NewSerialTransport(p.Address, p.BaudRate), nil
+				}
+				if p.Connection == "system" {
+					return system.NewSystemTransport(p.Address), nil
 				}
 				return network.NewTCPTransport(p.Address, 5*time.Second), nil
 			}

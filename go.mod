@@ -1,4 +1,4 @@
-module sv-print
+module sv-printer
 
 go 1.26.3
 

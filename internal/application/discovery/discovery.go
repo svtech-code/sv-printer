@@ -3,8 +3,8 @@ package discovery
 import (
 	"context"
 
-	domainErrors "sv-print/internal/domain/errors"
-	"sv-print/internal/domain/printer"
+	domainErrors "sv-printer/internal/domain/errors"
+	"sv-printer/internal/domain/printer"
 )
 
 type PrinterDiscovery interface {

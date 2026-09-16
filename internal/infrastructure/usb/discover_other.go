@@ -5,7 +5,7 @@ package usb
 import (
 	"context"
 
-	"sv-print/internal/domain/printer"
+	"sv-printer/internal/domain/printer"
 )
 
 func listUSB(ctx context.Context) ([]printer.Printer, error) {

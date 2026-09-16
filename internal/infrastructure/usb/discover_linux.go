@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"sv-print/internal/domain/printer"
+	"sv-printer/internal/domain/printer"
 )
 
 func listUSB(ctx context.Context) ([]printer.Printer, error) {

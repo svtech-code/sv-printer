@@ -7,8 +7,8 @@ import (
 
 	goserial "go.bug.st/serial"
 
-	domainErrors "sv-print/internal/domain/errors"
-	"sv-print/internal/infrastructure/transport"
+	domainErrors "sv-printer/internal/domain/errors"
+	"sv-printer/internal/infrastructure/transport"
 )
 
 type writer interface {

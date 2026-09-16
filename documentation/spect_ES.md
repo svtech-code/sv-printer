@@ -160,9 +160,9 @@ Se utilizará una arquitectura modular inspirada en Clean Architecture.
 Estructura propuesta:
 
 ```text
-sv-print/
+sv-printer/
 ├── cmd/
-│   └── sv-print/
+│   └── sv-printer/
 │       └── main.go
 │
 ├── internal/
@@ -264,13 +264,13 @@ Debe soportar:
 Binario:
 
 ```text
-sv-print.exe
+sv-printer.exe
 ```
 
 Instalador futuro:
 
 ```text
-sv-print-installer.exe
+sv-printer-installer.exe
 ```
 
 ---
@@ -781,7 +781,7 @@ Respuesta:
 
 ```json
 {
-  "name": "sv-print",
+  "name": "sv-printer",
   "version": "0.1.0",
   "platform": "darwin",
   "architecture": "arm64"
@@ -1023,29 +1023,29 @@ Debe proporcionar una CLI administrativa.
 Ejemplos:
 
 ```bash
-sv-print status
+sv-printer status
 
-sv-print printers
+sv-printer printers
 
-sv-print discover
+sv-printer discover
 
-sv-print test <printer-id>
+sv-printer test <printer-id>
 
-sv-print print <printer-id> receipt.json
+sv-printer print <printer-id> receipt.json
 
-sv-print config
+sv-printer config
 
-sv-print logs
+sv-printer logs
 
-sv-print doctor
+sv-printer doctor
 
-sv-print version
+sv-printer version
 ```
 
 Ejemplo:
 
 ```bash
-sv-print printers
+sv-printer printers
 ```
 
 Resultado:
@@ -1185,7 +1185,7 @@ Nunca deben registrarse:
 Debe existir:
 
 ```bash
-sv-print doctor
+sv-printer doctor
 ```
 
 Ejemplo:
@@ -1257,13 +1257,13 @@ launchd
 La CLI debe permitir:
 
 ```bash
-sv-print service start
+sv-printer service start
 
-sv-print service stop
+sv-printer service stop
 
-sv-print service restart
+sv-printer service restart
 
-sv-print service status
+sv-printer service status
 ```
 
 La implementación específica de cada sistema operativo debe estar aislada de la lógica principal.
@@ -1411,14 +1411,14 @@ Se podrán agregar posteriormente:
 Cada release debe generar:
 
 ```text
-sv-print-windows-amd64.exe
-sv-print-windows-arm64.exe
+sv-printer-windows-amd64.exe
+sv-printer-windows-arm64.exe
 
-sv-print-linux-amd64
-sv-print-linux-arm64
+sv-printer-linux-amd64
+sv-printer-linux-arm64
 
-sv-print-darwin-amd64
-sv-print-darwin-arm64
+sv-printer-darwin-amd64
+sv-printer-darwin-arm64
 ```
 
 Posteriormente:

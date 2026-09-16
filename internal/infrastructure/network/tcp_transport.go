@@ -6,8 +6,8 @@ import (
 	"net"
 	"time"
 
-	"sv-print/internal/domain/errors"
-	"sv-print/internal/infrastructure/transport"
+	"sv-printer/internal/domain/errors"
+	"sv-printer/internal/infrastructure/transport"
 )
 
 type TCPTransport struct {

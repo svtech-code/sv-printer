@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	domainErrors "sv-print/internal/domain/errors"
+	domainErrors "sv-printer/internal/domain/errors"
 )
 
 type fakePort struct {

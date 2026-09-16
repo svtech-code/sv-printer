@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strings"
 
-	domainErrors "sv-print/internal/domain/errors"
+	domainErrors "sv-printer/internal/domain/errors"
 )
 
 func WithAuth(token string, next http.Handler) http.Handler {

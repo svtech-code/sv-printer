@@ -38,5 +38,5 @@ Releases are tagged `vX.Y.Z`.
 
 ### Changed
 
-- **Product rename**: SV Print Agent → SV Print (identifier: `sv-print`).
+- **Product rename**: SV Print Agent → SV Print (identifier: `sv-printer`).
 - **Config**: corrected `allowed-origins` example to `svtech.cl`.

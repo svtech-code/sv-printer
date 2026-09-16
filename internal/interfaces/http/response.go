@@ -5,7 +5,7 @@ import (
 	"errors"
 	"net/http"
 
-	domainErrors "sv-print/internal/domain/errors"
+	domainErrors "sv-printer/internal/domain/errors"
 )
 
 type errorBody struct {

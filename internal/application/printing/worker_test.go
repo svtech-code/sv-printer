@@ -5,8 +5,8 @@ import (
 	"testing"
 	"time"
 
-	"sv-print/internal/domain/job"
-	"sv-print/internal/infrastructure/transport"
+	"sv-printer/internal/domain/job"
+	"sv-printer/internal/infrastructure/transport"
 )
 
 type mockTransport struct {

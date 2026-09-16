@@ -7,8 +7,8 @@
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-BSL--1.1-blue.svg" alt="License"></a>
   <a href="https://golang.org/"><img src="https://img.shields.io/badge/Go-1.26+-00ADD8?logo=go" alt="Go Version"></a>
-  <a href="https://github.com/svtech-code/sv-printer/actions/workflows/ci.yml"><img src="https://github.com/svtech-code/sv-printer/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
-  <a href="https://github.com/svtech-code/sv-printer/releases"><img src="https://img.shields.io/github/v/release/svtech-code/sv-printer" alt="Release"></a>
+  <a href="https://github.com/svtech-code/sv-printerer/actions/workflows/ci.yml"><img src="https://github.com/svtech-code/sv-printerer/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="https://github.com/svtech-code/sv-printerer/releases"><img src="https://img.shields.io/github/v/release/svtech-code/sv-printerer" alt="Release"></a>
   <a href="#licensing"><img src="https://img.shields.io/badge/Tier-Freemium-green.svg" alt="Freemium"></a>
   <a href="README_ES.md"><img src="https://img.shields.io/badge/Lang-Espa%C3%B1ol-orange.svg" alt="Versión en Español"></a>
 </p>
@@ -84,7 +84,7 @@ flowchart TD
 ```
 
 ```text
-cmd/sv-print/            CLI entry point
+cmd/sv-printer/            CLI entry point
 internal/
   application/           Use cases (discovery, printing, events)
   domain/                Core models (printer, job, errors)
@@ -99,29 +99,29 @@ pkg/escpos/              ESC/POS command builder
 
 ```bash
 # Build
-go build -o sv-print ./cmd/sv-print
+go build -o sv-printer ./cmd/sv-printer
 
 # Run (auto-discovers printers, generates a token on first run)
-./sv-print
+./sv-printer
 
 # Or configure manually
-./sv-print -token mysecret -port 9876 -printer "Caja 1@192.168.1.100:9100"
+./sv-printer -token mysecret -port 9876 -printer "Caja 1@192.168.1.100:9100"
 ```
 
 ### Subcommands
 
 | Command | Description |
 |---|---|
-| `sv-print version` | Print version |
-| `sv-print status` | Check agent status |
-| `sv-print printers` | List configured printers |
-| `sv-print config` | Show current config |
-| `sv-print discover` | Re-run printer discovery |
-| `sv-print test <id>` | Send a test receipt |
-| `sv-print print <id> <file.json>` | Print a structured receipt from JSON |
-| `sv-print logs` | Tail log file |
-| `sv-print doctor` | Run diagnostics |
-| `sv-print device-id` | Show device fingerprint (for license binding) |
+| `sv-printer version` | Print version |
+| `sv-printer status` | Check agent status |
+| `sv-printer printers` | List configured printers |
+| `sv-printer config` | Show current config |
+| `sv-printer discover` | Re-run printer discovery |
+| `sv-printer test <id>` | Send a test receipt |
+| `sv-printer print <id> <file.json>` | Print a structured receipt from JSON |
+| `sv-printer logs` | Tail log file |
+| `sv-printer doctor` | Run diagnostics |
+| `sv-printer device-id` | Show device fingerprint (for license binding) |
 
 ---
 
@@ -174,7 +174,7 @@ SV_LICENSE_KEY=<hex> go run ./cmd/sv-license sign \
   > license.key
 
 # Install on the agent
-./sv-print -license ./license.key
+./sv-printer -license ./license.key
 ```
 
 ---

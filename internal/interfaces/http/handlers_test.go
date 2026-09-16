@@ -6,8 +6,8 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"sv-print/internal/application/discovery"
-	"sv-print/internal/application/printing"
+	"sv-printer/internal/application/discovery"
+	"sv-printer/internal/application/printing"
 )
 
 func TestHealthHandler(t *testing.T) {

@@ -5,15 +5,15 @@ import (
 	"runtime"
 	"time"
 
-	"sv-print/internal/application/discovery"
-	"sv-print/internal/application/events"
-	"sv-print/internal/application/printing"
-	domainErrors "sv-print/internal/domain/errors"
-	"sv-print/internal/domain/job"
-	"sv-print/internal/domain/printer"
-	"sv-print/internal/license"
-	"sv-print/internal/licensing"
-	"sv-print/internal/receipt"
+	"sv-printer/internal/application/discovery"
+	"sv-printer/internal/application/events"
+	"sv-printer/internal/application/printing"
+	domainErrors "sv-printer/internal/domain/errors"
+	"sv-printer/internal/domain/job"
+	"sv-printer/internal/domain/printer"
+	"sv-printer/internal/license"
+	"sv-printer/internal/licensing"
+	"sv-printer/internal/receipt"
 )
 
 type API struct {
@@ -78,7 +78,7 @@ func (a *API) InfoHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	resp := map[string]any{
-		"name":         "sv-print",
+		"name":         "sv-printer",
 		"version":      a.version,
 		"platform":     runtime.GOOS,
 		"architecture": runtime.GOARCH,

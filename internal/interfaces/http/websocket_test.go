@@ -10,9 +10,9 @@ import (
 
 	"github.com/coder/websocket"
 
-	"sv-print/internal/application/discovery"
-	"sv-print/internal/application/events"
-	"sv-print/internal/application/printing"
+	"sv-printer/internal/application/discovery"
+	"sv-printer/internal/application/events"
+	"sv-printer/internal/application/printing"
 )
 
 func TestEventsHandler(t *testing.T) {

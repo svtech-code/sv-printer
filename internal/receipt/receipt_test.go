@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"testing"
 
-	"sv-print/pkg/escpos"
+	"sv-printer/pkg/escpos"
 )
 
 func TestBuild(t *testing.T) {

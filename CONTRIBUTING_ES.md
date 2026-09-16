@@ -47,7 +47,7 @@ Asegúrate de tener Go 1.26+ instalado (ver [`go.mod`](./go.mod)).
 
 ```bash
 # Compilar
-go build ./cmd/sv-print
+go build ./cmd/sv-printer
 
 # Ejecutar tests unitarios
 go test ./...

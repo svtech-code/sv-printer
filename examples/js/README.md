@@ -6,7 +6,7 @@ A lightweight fetch-based client for the SV Print local HTTP API.
 
 ```html
 <script type="module">
-  import { SVPrint } from "./sv-print-client.js";
+  import { SVPrint } from "./sv-printer-client.js";
 
   const sv = new SVPrint({ token: "your-token" });
 
@@ -31,7 +31,7 @@ A lightweight fetch-based client for the SV Print local HTTP API.
 ## Usage (Node.js)
 
 ```js
-import { SVPrint } from "./sv-print-client.js";
+import { SVPrint } from "./sv-printer-client.js";
 
 const sv = new SVPrint({ token: process.env.SV_PRINT_TOKEN });
 

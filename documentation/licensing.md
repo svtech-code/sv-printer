@@ -70,7 +70,7 @@ SV_LICENSE_KEY=<private-key-hex> go run ./cmd/sv-license sign \
 
 The agent loads its license from, in order:
 
-1. the `-license` flag (`sv-print -license ./license.key`),
+1. the `-license` flag (`sv-printer -license ./license.key`),
 2. the `SV_PRINT_LICENSE` environment variable,
 3. `license.key` next to the config file (default location).
 
@@ -86,13 +86,13 @@ falls back to trial mode if it does not match.
 
 Flow:
 
-1. The customer runs `sv-print device-id` and sends you the fingerprint.
+1. The customer runs `sv-printer device-id` and sends you the fingerprint.
 2. You sign the license with `-fingerprint <value>`.
 3. The license only activates on that machine.
 
 ```bash
 # Customer:
-sv-print device-id
+sv-printer device-id
 # -> e.g. 3f8c2a...
 
 # Vendor:

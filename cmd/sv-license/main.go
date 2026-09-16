@@ -8,7 +8,7 @@ import (
 	"os"
 	"strings"
 
-	"sv-print/internal/license"
+	"sv-printer/internal/license"
 )
 
 func main() {
@@ -29,7 +29,7 @@ func main() {
 }
 
 func usage() {
-	fmt.Fprintln(os.Stderr, `sv-license — issue sv-print licenses
+	fmt.Fprintln(os.Stderr, `sv-license — issue sv-printer licenses
 
 Usage:
   sv-license keygen

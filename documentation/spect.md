@@ -159,9 +159,9 @@ A modular architecture inspired by Clean Architecture will be used.
 Proposed structure:
 
 ```text
-sv-print/
+sv-printer/
 ├── cmd/
-│   └── sv-print/
+│   └── sv-printer/
 │       └── main.go
 │
 ├── internal/
@@ -263,13 +263,13 @@ Must support:
 Binary:
 
 ```text
-sv-print.exe
+sv-printer.exe
 ```
 
 Future installer:
 
 ```text
-sv-print-installer.exe
+sv-printer-installer.exe
 ```
 
 ---
@@ -780,7 +780,7 @@ Response:
 
 ```json
 {
-  "name": "sv-print",
+  "name": "sv-printer",
   "version": "0.1.0",
   "platform": "darwin",
   "architecture": "arm64"
@@ -1022,29 +1022,29 @@ It must provide an administrative CLI.
 Examples:
 
 ```bash
-sv-print status
+sv-printer status
 
-sv-print printers
+sv-printer printers
 
-sv-print discover
+sv-printer discover
 
-sv-print test <printer-id>
+sv-printer test <printer-id>
 
-sv-print print <printer-id> receipt.json
+sv-printer print <printer-id> receipt.json
 
-sv-print config
+sv-printer config
 
-sv-print logs
+sv-printer logs
 
-sv-print doctor
+sv-printer doctor
 
-sv-print version
+sv-printer version
 ```
 
 Example:
 
 ```bash
-sv-print printers
+sv-printer printers
 ```
 
 Result:
@@ -1184,7 +1184,7 @@ Must never log:
 There must be:
 
 ```bash
-sv-print doctor
+sv-printer doctor
 ```
 
 Example:
@@ -1256,13 +1256,13 @@ launchd
 The CLI must allow:
 
 ```bash
-sv-print service start
+sv-printer service start
 
-sv-print service stop
+sv-printer service stop
 
-sv-print service restart
+sv-printer service restart
 
-sv-print service status
+sv-printer service status
 ```
 
 The specific implementation of each operating system must be isolated from the core logic.
@@ -1410,14 +1410,14 @@ May be added later:
 Each release must generate:
 
 ```text
-sv-print-windows-amd64.exe
-sv-print-windows-arm64.exe
+sv-printer-windows-amd64.exe
+sv-printer-windows-arm64.exe
 
-sv-print-linux-amd64
-sv-print-linux-arm64
+sv-printer-linux-amd64
+sv-printer-linux-arm64
 
-sv-print-darwin-amd64
-sv-print-darwin-arm64
+sv-printer-darwin-amd64
+sv-printer-darwin-arm64
 ```
 
 Later:

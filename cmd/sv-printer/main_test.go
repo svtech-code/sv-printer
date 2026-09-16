@@ -49,13 +49,13 @@ func TestRunCLI(t *testing.T) {
 			name:        "test requires printer id",
 			args:        []string{"test"},
 			wantErr:     true,
-			errContains: "usage: sv-print test",
+			errContains: "usage: sv-printer test",
 		},
 		{
 			name:        "print requires file",
 			args:        []string{"print"},
 			wantErr:     true,
-			errContains: "usage: sv-print print",
+			errContains: "usage: sv-printer print",
 		},
 	}
 

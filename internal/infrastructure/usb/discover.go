@@ -4,7 +4,7 @@ import (
 	"context"
 	"strings"
 
-	"sv-print/internal/domain/printer"
+	"sv-printer/internal/domain/printer"
 )
 
 type Discoverer struct{}

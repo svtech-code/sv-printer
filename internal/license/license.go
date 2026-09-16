@@ -2,7 +2,7 @@ package license
 
 import "time"
 
-const ProductName = "sv-print"
+const ProductName = "sv-printer"
 
 type Tier string
 

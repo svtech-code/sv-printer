@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"sv-print/internal/license"
+	"sv-printer/internal/license"
 )
 
 func TestTrialState(t *testing.T) {

@@ -3,7 +3,7 @@ package discovery
 import (
 	"context"
 
-	"sv-print/internal/domain/printer"
+	"sv-printer/internal/domain/printer"
 )
 
 type StaticDiscoverer struct {

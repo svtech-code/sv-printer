@@ -7,10 +7,10 @@ import (
 	"strings"
 	"testing"
 
-	"sv-print/internal/application/discovery"
-	"sv-print/internal/application/printing"
-	"sv-print/internal/domain/job"
-	"sv-print/internal/domain/printer"
+	"sv-printer/internal/application/discovery"
+	"sv-printer/internal/application/printing"
+	"sv-printer/internal/domain/job"
+	"sv-printer/internal/domain/printer"
 )
 
 func newTestAPI() *API {

@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"sv-print/internal/domain/printer"
+	"sv-printer/internal/domain/printer"
 )
 
 func TestRegistryFind(t *testing.T) {

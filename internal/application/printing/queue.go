@@ -3,8 +3,8 @@ package printing
 import (
 	"sync"
 
-	domainErrors "sv-print/internal/domain/errors"
-	"sv-print/internal/domain/job"
+	domainErrors "sv-printer/internal/domain/errors"
+	"sv-printer/internal/domain/job"
 )
 
 type PrintQueue interface {

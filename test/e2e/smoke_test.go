@@ -76,9 +76,9 @@ func TestSmoke(t *testing.T) {
 
 	// Build the agent binary.
 	tmpDir := t.TempDir()
-	binPath := filepath.Join(tmpDir, "sv-print")
+	binPath := filepath.Join(tmpDir, "sv-printer")
 
-	goBuild := exec.Command("go", "build", "-o", binPath, "./cmd/sv-print")
+	goBuild := exec.Command("go", "build", "-o", binPath, "./cmd/sv-printer")
 	goBuild.Dir = repoRoot
 	if out, err := goBuild.CombinedOutput(); err != nil {
 		t.Fatalf("go build: %v\n%s", err, out)
@@ -147,8 +147,8 @@ func TestSmoke(t *testing.T) {
 	}
 	var info map[string]any
 	json.Unmarshal(body, &info)
-	if info["name"] != "sv-print" {
-		t.Errorf("info.name = %v, want sv-print", info["name"])
+	if info["name"] != "sv-printer" {
+		t.Errorf("info.name = %v, want sv-printer", info["name"])
 	}
 	if info["tier"] != "trial" {
 		t.Errorf("info.tier = %v, want trial", info["tier"])
@@ -287,9 +287,9 @@ func TestSmoke_CLISubcommands(t *testing.T) {
 	repoRoot = filepath.Join(repoRoot, "..", "..")
 
 	tmpDir := t.TempDir()
-	binPath := filepath.Join(tmpDir, "sv-print")
+	binPath := filepath.Join(tmpDir, "sv-printer")
 
-	goBuild := exec.Command("go", "build", "-o", binPath, "./cmd/sv-print")
+	goBuild := exec.Command("go", "build", "-o", binPath, "./cmd/sv-printer")
 	goBuild.Dir = repoRoot
 	if out, err := goBuild.CombinedOutput(); err != nil {
 		t.Fatalf("go build: %v\n%s", err, out)
@@ -309,7 +309,7 @@ func TestSmoke_CLISubcommands(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			out, err := exec.Command(binPath, tt.args...).CombinedOutput()
 			if err != nil {
-				t.Fatalf("sv-print %s: %v\n%s", tt.args[0], err, out)
+				t.Fatalf("sv-printer %s: %v\n%s", tt.args[0], err, out)
 			}
 			if tt.wantOut != "" && !strings.Contains(string(out), tt.wantOut) {
 				t.Errorf("output = %q, want to contain %q", out, tt.wantOut)

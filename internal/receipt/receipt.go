@@ -1,8 +1,8 @@
 package receipt
 
 import (
-	domainErrors "sv-print/internal/domain/errors"
-	"sv-print/pkg/escpos"
+	domainErrors "sv-printer/internal/domain/errors"
+	"sv-printer/pkg/escpos"
 )
 
 type Document struct {

@@ -7,8 +7,8 @@ import (
 	"strings"
 	"testing"
 
-	"sv-print/internal/license"
-	"sv-print/internal/licensing"
+	"sv-printer/internal/license"
+	"sv-printer/internal/licensing"
 )
 
 func TestPrintHandlerTrialBlocked(t *testing.T) {
@@ -82,7 +82,7 @@ func TestPrintReceiptQuotaExceeded(t *testing.T) {
 
 func TestLicensedNoWatermark(t *testing.T) {
 	lic := &license.License{
-		Product:  "sv-print",
+		Product:  "sv-printer",
 		Customer: "ACME",
 		Tier:     "full",
 		Features: []string{"raw_print", "websocket"},

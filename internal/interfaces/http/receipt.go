@@ -3,8 +3,8 @@ package http
 import (
 	"net/http"
 
-	domainErrors "sv-print/internal/domain/errors"
-	"sv-print/internal/receipt"
+	domainErrors "sv-printer/internal/domain/errors"
+	"sv-printer/internal/receipt"
 )
 
 type receiptRequest struct {

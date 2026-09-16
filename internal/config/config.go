@@ -67,6 +67,9 @@ func Load(args []string) (Config, error) {
 	var serialPrinters stringList
 	fs.Var(&serialPrinters, "serial", "manual serial printer as name@port[@baud] (repeatable)")
 
+	var systemPrinters stringList
+	fs.Var(&systemPrinters, "system", "manual system printer as name@printer_id (repeatable)")
+
 	if err := fs.Parse(args); err != nil {
 		return Config{}, err
 	}
@@ -141,6 +144,14 @@ func Load(args []string) (Config, error) {
 		cfg.Printers = append(cfg.Printers, mp)
 	}
 
+	for _, p := range systemPrinters {
+		mp, err := parseSystemPrinter(p)
+		if err != nil {
+			return Config{}, err
+		}
+		cfg.Printers = append(cfg.Printers, mp)
+	}
+
 	if cfg.Token == "" {
 		generated, err := generateToken()
 		if err != nil {
@@ -184,13 +195,13 @@ func Save(cfg Config) error {
 func DefaultPath() string {
 	dir, err := os.UserConfigDir()
 	if err != nil {
-		return "sv-print-config.json"
+		return "sv-printer-config.json"
 	}
-	return filepath.Join(dir, "sv-print", "config.json")
+	return filepath.Join(dir, "sv-printer", "config.json")
 }
 
 func (c Config) LogPath() string {
-	return filepath.Join(filepath.Dir(c.Path), "sv-print.log")
+	return filepath.Join(filepath.Dir(c.Path), "sv-printer.log")
 }
 
 func loadFile(path string, cfg *Config) error {
@@ -254,6 +265,25 @@ func parseSerialPrinter(s string) (ManualPrinter, error) {
 		Protocol:   "escpos",
 		Connection: "serial",
 		BaudRate:   baud,
+	}, nil
+}
+
+func parseSystemPrinter(s string) (ManualPrinter, error) {
+	name := s
+	address := s
+	if i := strings.LastIndex(s, "@"); i >= 0 {
+		name = s[:i]
+		address = s[i+1:]
+	}
+	if address == "" {
+		return ManualPrinter{}, fmt.Errorf("invalid system printer %q: missing printer_name", s)
+	}
+	return ManualPrinter{
+		ID:         "system-" + address,
+		Name:       name,
+		Address:    address,
+		Protocol:   "escpos",
+		Connection: "system",
 	}, nil
 }
 
