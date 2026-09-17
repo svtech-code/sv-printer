@@ -55,13 +55,16 @@ func main() {
 				slog.Error("agent error", "error", err)
 			}
 		} else {
+			done := make(chan struct{})
 			gui.RunTray(cfg.Token, func() {
 				if err := runAgentWithConfig(ctx, cfg, os.Stdout); err != nil {
 					slog.Error("agent error", "error", err)
 				}
+				close(done)
 			}, func() {
 				stop()
 			})
+			<-done
 		}
 	} else {
 		if err := runCLI(ctx, args, os.Stdout); err != nil {

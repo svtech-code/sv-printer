@@ -9,15 +9,15 @@ import (
 // It calls onReady when the tray is drawn, which should start the background agent.
 // It calls onExit when the user clicks "Salir" to shut down the agent.
 func RunTray(token string, onReady func(), onExit func()) {
+	var isHiding bool
+
 	systray.Run(
 		func() {
 			systray.SetTitle("SV Printer")
 			systray.SetTooltip("SV Printer Agent")
 
-			// We don't have an icon byte slice right now, so it will just show the Title on Mac,
-			// or a default blank square on Windows. In production you would call systray.SetIcon(iconBytes).
-
 			mCopyToken := systray.AddMenuItem("Copiar Token", "Copia el token de seguridad al portapapeles")
+			mHide := systray.AddMenuItem("Ocultar Icono", "Oculta el icono de la barra (el agente seguirá corriendo)")
 			systray.AddSeparator()
 			mQuit := systray.AddMenuItem("Salir", "Cerrar el agente SV Printer")
 
@@ -29,15 +29,22 @@ func RunTray(token string, onReady func(), onExit func()) {
 				select {
 				case <-mCopyToken.ClickedCh:
 					clipboard.WriteAll(token)
+				case <-mHide.ClickedCh:
+					isHiding = true
+					systray.Quit()
+					return
 				case <-mQuit.ClickedCh:
+					isHiding = false
 					systray.Quit()
 					return
 				}
 			}
 		},
 		func() {
-			// Trigger the shutdown callback when the tray exits
-			onExit()
+			// Trigger the shutdown callback only if we are actually quitting
+			if !isHiding {
+				onExit()
+			}
 		},
 	)
 }
