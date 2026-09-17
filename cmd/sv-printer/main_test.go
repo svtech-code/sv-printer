@@ -119,7 +119,7 @@ func TestRunCLIDoctor(t *testing.T) {
 
 func TestRunCLILogsNoFile(t *testing.T) {
 	var outBuf bytes.Buffer
-	err := runCLI(context.Background(), []string{"logs"}, &outBuf)
+	err := runCLI(context.Background(), []string{"logs", "-config", "/does/not/exist.json"}, &outBuf)
 	if err != nil {
 		t.Fatalf("runCLI() error = %v", err)
 	}
