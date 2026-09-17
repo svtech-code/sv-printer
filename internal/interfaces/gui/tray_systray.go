@@ -1,3 +1,6 @@
+//go:build (darwin && cgo) || (linux && cgo) || windows
+
+
 package gui
 
 import (
