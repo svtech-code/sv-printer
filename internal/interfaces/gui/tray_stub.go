@@ -1,4 +1,4 @@
-//go:build (darwin && !cgo) || (linux && !cgo)
+//go:build (darwin && !cgo) || linux
 
 package gui
 
@@ -10,7 +10,7 @@ import (
 // because CGO is disabled on this platform build.
 func RunTray(token string, onReady func(), onExit func()) {
 	slog.Info("System tray GUI is disabled in this build (CGO disabled). Running in headless mode.")
-	
+
 	// Start the background process
 	go onReady()
 

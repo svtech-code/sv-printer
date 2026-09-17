@@ -1,5 +1,4 @@
-//go:build (darwin && cgo) || (linux && cgo) || windows
-
+//go:build (darwin && cgo) || windows
 
 package gui
 
