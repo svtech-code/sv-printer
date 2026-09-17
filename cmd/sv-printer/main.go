@@ -26,6 +26,7 @@ import (
 	"sv-printer/internal/infrastructure/system"
 	"sv-printer/internal/infrastructure/transport"
 	"sv-printer/internal/infrastructure/usb"
+	"sv-printer/internal/interfaces/gui"
 	apphttp "sv-printer/internal/interfaces/http"
 	"sv-printer/internal/licensing"
 	"sv-printer/internal/receipt"
@@ -42,16 +43,25 @@ func main() {
 
 	args := os.Args[1:]
 
-	var err error
 	if len(args) == 0 || strings.HasPrefix(args[0], "-") {
-		err = runAgent(ctx, args, os.Stdout)
-	} else {
-		err = runCLI(ctx, args, os.Stdout)
-	}
+		cfg, err := config.Load(args)
+		if err != nil {
+			slog.Error("config error", "error", err)
+			os.Exit(1)
+		}
 
-	if err != nil {
-		slog.Error("application error", "error", err.Error())
-		os.Exit(1)
+		gui.RunTray(cfg.Token, func() {
+			if err := runAgentWithConfig(ctx, cfg, os.Stdout); err != nil {
+				slog.Error("agent error", "error", err)
+			}
+		}, func() {
+			stop()
+		})
+	} else {
+		if err := runCLI(ctx, args, os.Stdout); err != nil {
+			slog.Error("application error", "error", err.Error())
+			os.Exit(1)
+		}
 	}
 }
 
@@ -207,11 +217,7 @@ func redactToken(t string) string {
 	return "********"
 }
 
-func runAgent(ctx context.Context, args []string, stdout io.Writer) error {
-	cfg, err := config.Load(args)
-	if err != nil {
-		return err
-	}
+func runAgentWithConfig(ctx context.Context, cfg config.Config, stdout io.Writer) error {
 
 	setupLogFile(cfg)
 

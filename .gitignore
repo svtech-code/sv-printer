@@ -1,4 +1,6 @@
 # Build artifacts
+/sv-printer
+/sv-printer.exe
 /sv-print
 /sv-print.exe
 *.exe
@@ -7,7 +9,7 @@
 
 # Runtime logs
 *.log
-sv-print.log
+sv-printer.log
 
 # Test and coverage
 coverage.out
