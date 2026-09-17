@@ -37,6 +37,7 @@ type Config struct {
 	TokenGenerated bool            `json:"-"`
 	Path           string          `json:"-"`
 	LicensePath    string          `json:"-"`
+	Headless       bool            `json:"headless"`
 }
 
 type stringList []string
@@ -57,6 +58,7 @@ func Load(args []string) (Config, error) {
 	port := fs.Int("port", 0, "port to bind the local API")
 	token := fs.String("token", "", "auth token for the local API")
 	maxPayload := fs.Int64("max-payload", 0, "maximum payload size in bytes")
+	headless := fs.Bool("headless", false, "run without system tray icon")
 
 	var origins stringList
 	fs.Var(&origins, "origin", "allowed CORS origin (repeatable)")
@@ -104,6 +106,10 @@ func Load(args []string) (Config, error) {
 		cfg.Token = *token
 	} else if env := os.Getenv("SV_PRINT_TOKEN"); env != "" {
 		cfg.Token = env
+	}
+
+	if *headless {
+		cfg.Headless = true
 	}
 
 	if *maxPayload != 0 {

@@ -1,7 +1,6 @@
 package gui
 
 import (
-
 	"github.com/atotto/clipboard"
 	"github.com/getlantern/systray"
 )
@@ -14,7 +13,7 @@ func RunTray(token string, onReady func(), onExit func()) {
 		func() {
 			systray.SetTitle("SV Printer")
 			systray.SetTooltip("SV Printer Agent")
-			
+
 			// We don't have an icon byte slice right now, so it will just show the Title on Mac,
 			// or a default blank square on Windows. In production you would call systray.SetIcon(iconBytes).
 

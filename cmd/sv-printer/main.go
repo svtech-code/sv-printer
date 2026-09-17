@@ -50,13 +50,19 @@ func main() {
 			os.Exit(1)
 		}
 
-		gui.RunTray(cfg.Token, func() {
+		if cfg.Headless {
 			if err := runAgentWithConfig(ctx, cfg, os.Stdout); err != nil {
 				slog.Error("agent error", "error", err)
 			}
-		}, func() {
-			stop()
-		})
+		} else {
+			gui.RunTray(cfg.Token, func() {
+				if err := runAgentWithConfig(ctx, cfg, os.Stdout); err != nil {
+					slog.Error("agent error", "error", err)
+				}
+			}, func() {
+				stop()
+			})
+		}
 	} else {
 		if err := runCLI(ctx, args, os.Stdout); err != nil {
 			slog.Error("application error", "error", err.Error())
