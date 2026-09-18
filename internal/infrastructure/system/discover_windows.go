@@ -6,6 +6,7 @@ import (
 	"context"
 	"os/exec"
 	"strings"
+	"syscall"
 
 	"sv-printer/internal/domain/printer"
 )
@@ -18,6 +19,7 @@ func NewDiscoverer() *Discoverer {
 
 func (d *Discoverer) Discover(ctx context.Context) ([]printer.Printer, error) {
 	cmd := exec.CommandContext(ctx, "powershell", "-NoProfile", "-Command", "Get-Printer | Select-Object -ExpandProperty Name")
+	cmd.SysProcAttr = &syscall.SysProcAttr{HideWindow: true}
 	out, err := cmd.Output()
 	if err != nil {
 		// If powershell fails or isn't available, return nil instead of failing the whole discovery

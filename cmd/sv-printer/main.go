@@ -17,6 +17,7 @@ import (
 	"sv-printer/internal/application/discovery"
 	"sv-printer/internal/application/events"
 	"sv-printer/internal/application/printing"
+	"sv-printer/internal/autostart"
 	"sv-printer/internal/config"
 	"sv-printer/internal/deviceid"
 	domainErrors "sv-printer/internal/domain/errors"
@@ -213,7 +214,36 @@ func runCLI(ctx context.Context, args []string, stdout io.Writer) error {
 		fmt.Fprintln(stdout, id)
 		return nil
 	case "service":
-		return fmt.Errorf("service is not implemented yet")
+		if len(args) < 2 {
+			return fmt.Errorf("usage: sv-printer service <install|uninstall|status>")
+		}
+		switch args[1] {
+		case "install":
+			if err := autostart.Install(); err != nil {
+				return fmt.Errorf("failed to install service: %v", err)
+			}
+			fmt.Fprintln(stdout, "Service installed successfully. It will start automatically on login.")
+			return nil
+		case "uninstall":
+			if err := autostart.Uninstall(); err != nil {
+				return fmt.Errorf("failed to uninstall service: %v", err)
+			}
+			fmt.Fprintln(stdout, "Service uninstalled successfully.")
+			return nil
+		case "status":
+			enabled, err := autostart.Status()
+			if err != nil {
+				return err
+			}
+			if enabled {
+				fmt.Fprintln(stdout, "Service is enabled (starts on login).")
+			} else {
+				fmt.Fprintln(stdout, "Service is not enabled.")
+			}
+			return nil
+		default:
+			return fmt.Errorf("unknown service command: %s", args[1])
+		}
 	default:
 		return fmt.Errorf("unknown subcommand: %s", args[0])
 	}
@@ -334,6 +364,17 @@ func transportFactory(cfg config.Config) printing.TransportFactory {
 				return network.NewTCPTransport(p.Address, 5*time.Second), nil
 			}
 		}
+
+		// Handle dynamically discovered printers
+		if strings.HasPrefix(printerID, "system-") {
+			address := strings.TrimPrefix(printerID, "system-")
+			return system.NewSystemTransport(address), nil
+		}
+		if strings.HasPrefix(printerID, "serial-") {
+			port := strings.TrimPrefix(printerID, "serial-")
+			return serial.NewSerialTransport(port, 9600), nil
+		}
+
 		return nil, domainErrors.ErrPrinterNotFound
 	}
 }

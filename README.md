@@ -1,4 +1,8 @@
-<h1 align="center">SV Print</h1>
+<h1 align="center">SV Printer</h1>
+
+<p align="center">
+  <img src="assets/sv-printer.png" alt="SV Printer" width="400">
+</p>
 
 <p align="center">
   <b>Cross-platform local agent written in Go that lets web applications print to thermal printers — without relying on the browser's print dialog.</b>

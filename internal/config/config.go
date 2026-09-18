@@ -18,6 +18,8 @@ const (
 	DefaultMaxPayloadSize = int64(5 * 1024 * 1024)
 )
 
+var DefaultAllowedOrigin = ""
+
 type ManualPrinter struct {
 	ID         string `json:"id"`
 	Name       string `json:"name"`
@@ -128,6 +130,8 @@ func Load(args []string) (Config, error) {
 	} else if len(cfg.AllowedOrigins) == 0 {
 		if env := os.Getenv("SV_PRINT_ALLOWED_ORIGINS"); env != "" {
 			cfg.AllowedOrigins = strings.Split(env, ",")
+		} else if DefaultAllowedOrigin != "" {
+			cfg.AllowedOrigins = []string{DefaultAllowedOrigin}
 		}
 	}
 

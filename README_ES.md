@@ -1,4 +1,8 @@
-<h1 align="center">SV Print</h1>
+<h1 align="center">SV Printer</h1>
+
+<p align="center">
+  <img src="assets/sv-printer.png" alt="SV Printer" width="400">
+</p>
 
 <p align="center">
   <b>Agente local multiplataforma escrito en Go que permite a las aplicaciones web imprimir en impresoras térmicas — sin depender del diálogo de impresión del navegador.</b>
