@@ -43,7 +43,7 @@ func TestRunCLI(t *testing.T) {
 			name:        "unimplemented subcommand",
 			args:        []string{"service"},
 			wantErr:     true,
-			errContains: "service is not implemented yet",
+			errContains: "usage: sv-printer service <install|uninstall|status>",
 		},
 		{
 			name:        "test requires printer id",
