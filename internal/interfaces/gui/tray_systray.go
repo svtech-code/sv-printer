@@ -3,23 +3,30 @@
 package gui
 
 import (
+	"log/slog"
+
 	"github.com/atotto/clipboard"
 	"github.com/getlantern/systray"
+	"sv-printer/internal/autostart"
 )
 
 // RunTray starts the system tray on the main OS thread.
 // It calls onReady when the tray is drawn, which should start the background agent.
 // It calls onExit when the user clicks "Salir" to shut down the agent.
 func RunTray(token string, onReady func(), onExit func()) {
-	var isHiding bool
-
 	systray.Run(
 		func() {
+			systray.SetIcon(iconData)
 			systray.SetTitle("SV Printer")
 			systray.SetTooltip("SV Printer Agent")
 
 			mCopyToken := systray.AddMenuItem("Copiar Token", "Copia el token de seguridad al portapapeles")
-			mHide := systray.AddMenuItem("Ocultar Icono", "Oculta el icono de la barra (el agente seguirá corriendo)")
+			systray.AddSeparator()
+			
+			// Initial autostart status
+			enabled, _ := autostart.Status()
+			mAutostart := systray.AddMenuItemCheckbox("Iniciar con el sistema", "Ejecuta SV Printer al encender la computadora", enabled)
+			
 			systray.AddSeparator()
 			mQuit := systray.AddMenuItem("Salir", "Cerrar el agente SV Printer")
 
@@ -31,22 +38,28 @@ func RunTray(token string, onReady func(), onExit func()) {
 				select {
 				case <-mCopyToken.ClickedCh:
 					clipboard.WriteAll(token)
-				case <-mHide.ClickedCh:
-					isHiding = true
-					systray.Quit()
-					return
+				case <-mAutostart.ClickedCh:
+					if mAutostart.Checked() {
+						if err := autostart.Uninstall(); err == nil {
+							mAutostart.Uncheck()
+						} else {
+							slog.Error("failed to disable autostart", "error", err)
+						}
+					} else {
+						if err := autostart.Install(); err == nil {
+							mAutostart.Check()
+						} else {
+							slog.Error("failed to enable autostart", "error", err)
+						}
+					}
 				case <-mQuit.ClickedCh:
-					isHiding = false
 					systray.Quit()
 					return
 				}
 			}
 		},
 		func() {
-			// Trigger the shutdown callback only if we are actually quitting
-			if !isHiding {
-				onExit()
-			}
+			onExit()
 		},
 	)
 }
