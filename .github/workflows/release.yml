@@ -20,6 +20,9 @@ jobs:
         with:
           go-version-file: go.mod
 
+      - name: Install NSIS
+        run: sudo apt-get update && sudo apt-get install -y nsis
+
       - uses: goreleaser/goreleaser-action@v6
         with:
           distribution: goreleaser
@@ -27,3 +30,34 @@ jobs:
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Native Installers
+        run: |
+          # 1. Windows Installer (amd64)
+          cp dist/sv-printer_windows_amd64_v1/sv-printer.exe ./sv-printer.exe
+          cd scripts
+          makensis installer.nsi
+          mv SV_Printer_Setup.exe ../SV_Printer_Setup_windows_amd64.exe
+          cd ..
+          
+          # 2. macOS App (amd64)
+          cp dist/sv-printer_darwin_amd64_v1/sv-printer ./sv-printer
+          ./scripts/build_mac_app.sh
+          zip -r SV_Printer_darwin_amd64.app.zip "SV Printer.app"
+          rm -rf "SV Printer.app"
+          
+          # 3. macOS App (arm64)
+          cp dist/sv-printer_darwin_arm64/sv-printer ./sv-printer
+          ./scripts/build_mac_app.sh
+          zip -r SV_Printer_darwin_arm64.app.zip "SV Printer.app"
+          rm -rf "SV Printer.app"
+
+      - name: Upload Native Installers to Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG_NAME=${GITHUB_REF#refs/tags/}
+          gh release upload $TAG_NAME \
+            SV_Printer_Setup_windows_amd64.exe \
+            SV_Printer_darwin_amd64.app.zip \
+            SV_Printer_darwin_arm64.app.zip

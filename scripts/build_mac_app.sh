@@ -6,8 +6,12 @@ CONTENTS_DIR="${APP_DIR}/Contents"
 MACOS_DIR="${CONTENTS_DIR}/MacOS"
 RESOURCES_DIR="${CONTENTS_DIR}/Resources"
 
-echo "Building Go binary..."
-go build -o sv-printer ./cmd/sv-printer
+if [ -f "sv-printer" ]; then
+    echo "Using existing Go binary..."
+else
+    echo "Building Go binary..."
+    go build -o sv-printer ./cmd/sv-printer
+fi
 
 echo "Creating App Bundle structure..."
 mkdir -p "$MACOS_DIR"
