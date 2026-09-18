@@ -15,6 +15,10 @@ Page directory
 Page instfiles
 
 Section "Install"
+    ; Ensure any running instance is closed before overwriting
+    ExecWait "taskkill /F /IM sv-printer.exe"
+    Sleep 1000
+
     SetOutPath "$INSTDIR"
     File "..\sv-printer.exe"
     File "..\assets\logo.ico"
@@ -32,6 +36,8 @@ SectionEnd
 Section "Uninstall"
     ; Stop the process if running
     ExecWait "taskkill /F /IM sv-printer.exe"
+    ; Wait for Windows to release file handles
+    Sleep 1000
     
     Delete "$INSTDIR\sv-printer.exe"
     Delete "$INSTDIR\logo.ico"
