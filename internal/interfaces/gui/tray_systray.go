@@ -22,11 +22,11 @@ func RunTray(token string, onReady func(), onExit func()) {
 
 			mCopyToken := systray.AddMenuItem("Copiar Token", "Copia el token de seguridad al portapapeles")
 			systray.AddSeparator()
-			
+
 			// Initial autostart status
 			enabled, _ := autostart.Status()
 			mAutostart := systray.AddMenuItemCheckbox("Iniciar con el sistema", "Ejecuta SV Printer al encender la computadora", enabled)
-			
+
 			systray.AddSeparator()
 			mQuit := systray.AddMenuItem("Salir", "Cerrar el agente SV Printer")
 
