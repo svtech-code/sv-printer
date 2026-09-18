@@ -79,7 +79,7 @@ func Load(args []string) (Config, error) {
 	}
 
 	var cfg Config
-	
+
 	pathToLoad := *configPath
 	if pathToLoad == "" {
 		pathToLoad = DefaultPath()
