@@ -17,7 +17,7 @@ func RunTray(token string, onReady func(), onExit func()) {
 	systray.Run(
 		func() {
 			systray.SetIcon(iconData)
-			systray.SetTitle("SV Printer")
+			// systray.SetTitle("SV Printer") // Removed so only the logo appears
 			systray.SetTooltip("SV Printer Agent")
 
 			mCopyToken := systray.AddMenuItem("Copiar Token", "Copia el token de seguridad al portapapeles")
