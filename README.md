@@ -99,17 +99,51 @@ pkg/escpos/              ESC/POS command builder
 
 ---
 
-## Quickstart
+## Installation and Configuration
 
+SV Print is designed to be distributed as a native desktop application that runs silently in the background.
+
+### 1. Installation
+Depending on your OS, you can use the official native installers:
+- **Windows**: Run `SV_Printer_Setup.exe`. It installs to `Program Files`, creates Start Menu shortcuts, and handles clean uninstallation.
+- **macOS**: Copy `SV Printer.app` to your Applications folder.
+- **Linux / CLI**: Compile and run the native binary directly (`./sv-printer`).
+
+### 2. System Tray
+Once running, the application will not open annoying consoles. It will dock silently in your **system tray** (near the clock).
+From the tray menu you can:
+- **Start with system**: Toggle native OS auto-start so the agent boots when the PC turns on.
+- **Copy Token**: Copy your security token to the clipboard.
+- **Quit**: Shut down the local server cleanly.
+
+### 3. Configuration (CORS and Token)
+For your web applications to print, you must authorize their URLs. The first time the program runs, it generates a security Token and a `config.json` file.
+
+**`config.json` File Paths:**
+- **Windows**: `%AppData%\sv-printer\config.json`
+- **macOS**: `~/Library/Application Support/sv-printer/config.json`
+- **Linux**: `~/.config/sv-printer/config.json`
+
+Edit this file to add your web system's domain to the `allowed_origins` array:
+```json
+{
+  "port": 9876,
+  "token": "your_generated_token_here",
+  "allowed_origins": [
+    "https://your-web-system.com"
+  ]
+}
+```
+*Note: After saving changes to this file, you must quit the app from the tray and reopen it to apply the new configuration.*
+
+### Development Mode (CLI)
+If you prefer to test or configure it temporarily via the terminal:
 ```bash
 # Build
 go build -o sv-printer ./cmd/sv-printer
 
-# Run (auto-discovers printers, generates a token on first run)
-./sv-printer
-
-# Or configure manually
-./sv-printer -token mysecret -port 9876 -printer "Caja 1@192.168.1.100:9100"
+# Configure manually and run
+./sv-printer -token mysecret -origin "https://app.com" -printer "Caja 1@192.168.1.100:9100"
 ```
 
 ### Subcommands

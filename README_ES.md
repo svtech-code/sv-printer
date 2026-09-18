@@ -99,17 +99,51 @@ pkg/escpos/              Constructor de comandos ESC/POS
 
 ---
 
-## Inicio Rápido
+## Instalación y Configuración
 
+SV Print está diseñado para distribuirse como una aplicación nativa de escritorio que se ejecuta silenciosamente en segundo plano.
+
+### 1. Instalación
+Dependiendo de tu sistema operativo, puedes usar los instaladores oficiales:
+- **Windows**: Ejecuta `SV_Printer_Setup.exe`. Se instalará en `Archivos de Programa`, creará accesos directos y gestionará la desinstalación limpia.
+- **macOS**: Copia `SV Printer.app` a tu carpeta de Aplicaciones.
+- **Linux / CLI**: Compila y ejecuta el binario nativo directamente (`./sv-printer`).
+
+### 2. Bandeja del Sistema (System Tray)
+Una vez en ejecución, la aplicación no abrirá consolas molestas. Se alojará silenciosamente en la **bandeja del sistema** (cerca del reloj).
+Desde allí puedes:
+- **Iniciar con el sistema**: Configurar el auto-arranque nativo para que el agente inicie al prender el equipo.
+- **Copiar Token**: Copiar tu token de seguridad al portapapeles.
+- **Salir**: Apagar el servidor local.
+
+### 3. Configuración (CORS y Token)
+Para que tus aplicaciones web puedan imprimir, debes autorizar sus URLs. La primera vez que el programa se ejecuta, genera un Token de seguridad y un archivo `config.json`.
+
+**Rutas del archivo `config.json`:**
+- **Windows**: `%AppData%\sv-printer\config.json`
+- **macOS**: `~/Library/Application Support/sv-printer/config.json`
+- **Linux**: `~/.config/sv-printer/config.json`
+
+Edita este archivo para agregar el dominio de tu sistema web en la propiedad `allowed_origins`:
+```json
+{
+  "port": 9876,
+  "token": "tu_token_generado_aqui",
+  "allowed_origins": [
+    "https://tu-sistema-web.com"
+  ]
+}
+```
+*Nota: Tras guardar los cambios en el archivo, debes cerrar la app desde el reloj y volver a abrirla para que tome la nueva configuración.*
+
+### Modo Desarrollo (CLI)
+Si prefieres probarlo o configurarlo temporalmente por consola:
 ```bash
 # Compilar
 go build -o sv-printer ./cmd/sv-printer
 
-# Ejecutar (auto-detecta impresoras, genera un token en la primera ejecución)
-./sv-printer
-
-# O configurar manualmente
-./sv-printer -token mysecret -port 9876 -printer "Caja 1@192.168.1.100:9100"
+# Configurar manualmente e iniciar
+./sv-printer -token mysecret -origin "https://app.com" -printer "Caja 1@192.168.1.100:9100"
 ```
 
 ### Subcomandos
