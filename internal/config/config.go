@@ -79,10 +79,14 @@ func Load(args []string) (Config, error) {
 	}
 
 	var cfg Config
-	if *configPath != "" {
-		if err := loadFile(*configPath, &cfg); err != nil && !os.IsNotExist(err) {
-			return Config{}, err
-		}
+	
+	pathToLoad := *configPath
+	if pathToLoad == "" {
+		pathToLoad = DefaultPath()
+	}
+
+	if err := loadFile(pathToLoad, &cfg); err != nil && !os.IsNotExist(err) {
+		return Config{}, err
 	}
 
 	if *host != "" {

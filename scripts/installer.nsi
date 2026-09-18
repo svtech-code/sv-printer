@@ -23,6 +23,7 @@ Section "Install"
 
     CreateDirectory "$SMPROGRAMS\${COMPANYNAME}"
     CreateShortcut "$SMPROGRAMS\${COMPANYNAME}\${APPNAME}.lnk" "$INSTDIR\sv-printer.exe" "" "$INSTDIR\logo.ico"
+    CreateShortcut "$DESKTOP\${APPNAME}.lnk" "$INSTDIR\sv-printer.exe" "" "$INSTDIR\logo.ico"
     
     ; Run the agent after installation completes
     Exec "$INSTDIR\sv-printer.exe"
@@ -38,6 +39,7 @@ Section "Uninstall"
     RMDir "$INSTDIR"
     
     Delete "$SMPROGRAMS\${COMPANYNAME}\${APPNAME}.lnk"
+    Delete "$DESKTOP\${APPNAME}.lnk"
     RMDir "$SMPROGRAMS\${COMPANYNAME}"
 
     DeleteRegValue HKCU "Software\Microsoft\Windows\CurrentVersion\Run" "sv-printer"

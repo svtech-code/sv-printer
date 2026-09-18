@@ -7,7 +7,7 @@ import (
 )
 
 func TestLoadDefaults(t *testing.T) {
-	cfg, err := Load(nil)
+	cfg, err := Load([]string{"-config", filepath.Join(t.TempDir(), "nonexistent.json")})
 	if err != nil {
 		t.Fatalf("Load() error = %v", err)
 	}
