@@ -28,9 +28,6 @@ Section "Install"
     CreateDirectory "$SMPROGRAMS\${COMPANYNAME}"
     CreateShortcut "$SMPROGRAMS\${COMPANYNAME}\${APPNAME}.lnk" "$INSTDIR\sv-printer.exe" "" "$INSTDIR\logo.ico"
     CreateShortcut "$DESKTOP\${APPNAME}.lnk" "$INSTDIR\sv-printer.exe" "" "$INSTDIR\logo.ico"
-    
-    ; Run the agent after installation completes
-    Exec "$INSTDIR\sv-printer.exe"
 SectionEnd
 
 Section "Uninstall"

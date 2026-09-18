@@ -48,6 +48,7 @@ func main() {
 		cfg, err := config.Load(args)
 		if err != nil {
 			slog.Error("config error", "error", err)
+			showFatalError("SV Printer - Config Error", "Failed to load configuration:\n"+err.Error())
 			os.Exit(1)
 		}
 
@@ -60,6 +61,7 @@ func main() {
 			gui.RunTray(cfg.Token, func() {
 				if err := runAgentWithConfig(ctx, cfg, os.Stdout); err != nil {
 					slog.Error("agent error", "error", err)
+					showFatalError("SV Printer - Error", "The agent stopped unexpectedly:\n"+err.Error())
 				}
 				close(done)
 			}, func() {
