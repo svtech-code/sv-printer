@@ -86,10 +86,10 @@ func main() {
 func runCLI(ctx context.Context, args []string, stdout io.Writer) error {
 	switch args[0] {
 	case "version":
-		fmt.Fprintf(stdout, "SV Print v%s\n", Version)
+		fmt.Fprintf(stdout, "SV Printer v%s\n", Version)
 		return nil
 	case "status":
-		fmt.Fprintln(stdout, "SV Print status: OK")
+		fmt.Fprintln(stdout, "SV Printer status: OK")
 		return nil
 	case "printers":
 		cfg, err := config.Load(args[1:])
@@ -100,7 +100,7 @@ func runCLI(ctx context.Context, args []string, stdout io.Writer) error {
 			fmt.Fprintln(stdout, "No printers configured yet.")
 			return nil
 		}
-		fmt.Fprintln(stdout, "SV Print")
+		fmt.Fprintln(stdout, "SV Printer")
 		fmt.Fprintln(stdout)
 		fmt.Fprintln(stdout, "ID\tNAME\tADDRESS")
 		for _, p := range cfg.Printers {
@@ -161,7 +161,7 @@ func runCLI(ctx context.Context, args []string, stdout io.Writer) error {
 		doc := receipt.Document{
 			Cut: true,
 			Lines: []receipt.Line{
-				{Text: "SV Print", Style: receipt.Style{Bold: true, Align: "center"}},
+				{Text: "SV Printer", Style: receipt.Style{Bold: true, Align: "center"}},
 				{Text: "Test receipt"},
 			},
 		}
@@ -275,7 +275,7 @@ func runAgentWithConfig(ctx context.Context, cfg config.Config, stdout io.Writer
 
 	licState := licensing.FromFile(cfg.LicensePath)
 
-	api := apphttp.NewAPI(queue, registry, Version, bus).WithLicense(licState)
+	api := apphttp.NewAPI(queue, registry, Version, bus).WithLicense(licState).WithOrigins(cfg.AllowedOrigins)
 
 	server := apphttp.NewServer(apphttp.ServerConfig{
 		Host:           cfg.Host,
@@ -288,7 +288,7 @@ func runAgentWithConfig(ctx context.Context, cfg config.Config, stdout io.Writer
 	worker := printing.NewWorker(queue, transportFactory(cfg), bus)
 
 	if cfg.TokenGenerated {
-		fmt.Fprintf(stdout, "SV Print initialized.\n\nToken:\n%s\n\n", cfg.Token)
+		fmt.Fprintf(stdout, "SV Printer initialized.\n\nToken:\n%s\n\n", cfg.Token)
 		if err := config.Save(cfg); err != nil {
 			slog.Warn("failed to persist config", "error", err.Error())
 		}
@@ -433,7 +433,7 @@ func tailLogs(stdout io.Writer, path string) error {
 }
 
 func runDoctor(ctx context.Context, stdout io.Writer, cfg config.Config) {
-	fmt.Fprintln(stdout, "SV Print Doctor")
+	fmt.Fprintln(stdout, "SV Printer Doctor")
 	fmt.Fprintln(stdout)
 	fmt.Fprintf(stdout, "✓ Operating system: %s/%s\n", runtime.GOOS, runtime.GOARCH)
 	fmt.Fprintf(stdout, "✓ Config file: %s\n", cfg.Path)

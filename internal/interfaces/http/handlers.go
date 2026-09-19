@@ -22,6 +22,7 @@ type API struct {
 	version  string
 	bus      *events.Bus
 	lic      *licensing.State
+	origins  []string
 }
 
 func NewAPI(q printing.PrintQueue, r *discovery.Registry, version string, bus ...*events.Bus) *API {
@@ -38,6 +39,11 @@ func NewAPI(q printing.PrintQueue, r *discovery.Registry, version string, bus ..
 
 func (a *API) WithLicense(s *licensing.State) *API {
 	a.lic = s
+	return a
+}
+
+func (a *API) WithOrigins(origins []string) *API {
+	a.origins = origins
 	return a
 }
 
@@ -163,7 +169,7 @@ func (a *API) TestPrinterHandler(w http.ResponseWriter, r *http.Request) {
 	doc := receipt.Document{
 		Cut: true,
 		Lines: []receipt.Line{
-			{Text: "SV Print", Style: receipt.Style{Bold: true, Align: "center"}},
+			{Text: "SV Printer", Style: receipt.Style{Bold: true, Align: "center"}},
 			{Text: "Test receipt"},
 		},
 	}

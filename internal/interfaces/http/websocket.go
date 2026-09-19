@@ -25,7 +25,16 @@ func (a *API) EventsHandler(w http.ResponseWriter, r *http.Request) {
 	ch, cancel := a.bus.Subscribe()
 	defer cancel()
 
-	c, err := websocket.Accept(w, r, &websocket.AcceptOptions{InsecureSkipVerify: true})
+	opts := &websocket.AcceptOptions{}
+	for _, o := range a.origins {
+		if o == "*" {
+			opts.InsecureSkipVerify = true
+			break
+		}
+		opts.OriginPatterns = append(opts.OriginPatterns, o)
+	}
+
+	c, err := websocket.Accept(w, r, opts)
 	if err != nil {
 		return
 	}

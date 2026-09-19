@@ -78,6 +78,66 @@ func TestEventsHandlerWithQueryToken(t *testing.T) {
 	}
 }
 
+func TestEventsHandlerAllowsConfiguredOrigin(t *testing.T) {
+	bus := events.NewBus()
+	api := NewAPI(printing.NewInMemoryQueue(), discovery.NewRegistry(), "1.0.0", bus).
+		WithOrigins([]string{"https://app.example.com"})
+
+	srv := httptest.NewServer(http.HandlerFunc(api.EventsHandler))
+	defer srv.Close()
+
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	conn, _, err := websocket.Dial(ctx, "ws"+strings.TrimPrefix(srv.URL, "http"), &websocket.DialOptions{
+		HTTPHeader: http.Header{"Origin": []string{"https://app.example.com"}},
+	})
+	if err != nil {
+		t.Fatalf("Dial with allowed origin: %v", err)
+	}
+	conn.Close(websocket.StatusNormalClosure, "")
+}
+
+func TestEventsHandlerRejectsDisallowedOrigin(t *testing.T) {
+	bus := events.NewBus()
+	api := NewAPI(printing.NewInMemoryQueue(), discovery.NewRegistry(), "1.0.0", bus).
+		WithOrigins([]string{"https://app.example.com"})
+
+	srv := httptest.NewServer(http.HandlerFunc(api.EventsHandler))
+	defer srv.Close()
+
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	conn, _, err := websocket.Dial(ctx, "ws"+strings.TrimPrefix(srv.URL, "http"), &websocket.DialOptions{
+		HTTPHeader: http.Header{"Origin": []string{"https://evil.example.com"}},
+	})
+	if err == nil {
+		conn.Close(websocket.StatusNormalClosure, "")
+		t.Fatal("Dial with disallowed origin succeeded, want rejection")
+	}
+}
+
+func TestEventsHandlerWildcardOrigin(t *testing.T) {
+	bus := events.NewBus()
+	api := NewAPI(printing.NewInMemoryQueue(), discovery.NewRegistry(), "1.0.0", bus).
+		WithOrigins([]string{"*"})
+
+	srv := httptest.NewServer(http.HandlerFunc(api.EventsHandler))
+	defer srv.Close()
+
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	conn, _, err := websocket.Dial(ctx, "ws"+strings.TrimPrefix(srv.URL, "http"), &websocket.DialOptions{
+		HTTPHeader: http.Header{"Origin": []string{"https://evil.example.com"}},
+	})
+	if err != nil {
+		t.Fatalf("Dial with wildcard origin: %v", err)
+	}
+	conn.Close(websocket.StatusNormalClosure, "")
+}
+
 func TestEventsHandlerWithoutBus(t *testing.T) {
 	api := NewAPI(printing.NewInMemoryQueue(), discovery.NewRegistry(), "1.0.0")
 
