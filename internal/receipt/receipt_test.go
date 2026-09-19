@@ -64,7 +64,6 @@ func TestBuildWithWatermark(t *testing.T) {
 	wm := "*** TRIAL ***"
 
 	expected := escpos.NewReceipt().
-		Center().Bold().Text(wm).ResetStyle().LineFeed().
 		Left().Text("hello").ResetStyle().LineFeed().
 		Center().Bold().Text(wm).ResetStyle().LineFeed().
 		Cut()

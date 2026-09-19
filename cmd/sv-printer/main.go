@@ -58,7 +58,7 @@ func main() {
 			}
 		} else {
 			done := make(chan struct{})
-			gui.RunTray(cfg.Token, func() {
+			gui.RunTray(cfg.Token, cfg.Path, func() {
 				if err := runAgentWithConfig(ctx, cfg, os.Stdout); err != nil {
 					slog.Error("agent error", "error", err)
 					showFatalError("SV Printer - Error", "The agent stopped unexpectedly:\n"+err.Error())

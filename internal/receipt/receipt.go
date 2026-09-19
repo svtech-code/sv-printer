@@ -50,9 +50,6 @@ func (d Document) Build(watermark ...string) *escpos.Receipt {
 	if len(watermark) > 0 {
 		wm = watermark[0]
 	}
-	if wm != "" {
-		r.Center().Bold().Text(wm).ResetStyle().LineFeed()
-	}
 
 	for _, l := range d.Lines {
 		st := l.Style

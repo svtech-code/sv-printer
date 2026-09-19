@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	TrialWatermark  = "*** SV PRINT — LICENCIA DE PRUEBA ***"
+	TrialWatermark  = "*** SV PRINTER — LICENCIA DE PRUEBA ***\nwww.svtech.cl"
 	TrialDailyQuota = 50
 )
 
