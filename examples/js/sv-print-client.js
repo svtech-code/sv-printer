@@ -1,5 +1,5 @@
 /**
- * SV Print client for JavaScript/TypeScript.
+ * SV Printer client for JavaScript/TypeScript.
  *
  * Usage (browser or Node.js):
  *   import { SVPrint } from "./sv-print-client.js";

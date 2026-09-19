@@ -19,13 +19,13 @@ func TestRunCLI(t *testing.T) {
 			name:    "version command",
 			args:    []string{"version"},
 			wantErr: false,
-			wantOut: "SV Print v0.1.0\n",
+			wantOut: "SV Printer v0.1.0\n",
 		},
 		{
 			name:    "status command",
 			args:    []string{"status"},
 			wantErr: false,
-			wantOut: "SV Print status: OK\n",
+			wantOut: "SV Printer status: OK\n",
 		},
 		{
 			name:    "printers command with no printers",
@@ -112,7 +112,7 @@ func TestRunCLIDoctor(t *testing.T) {
 	if err != nil {
 		t.Fatalf("runCLI() error = %v", err)
 	}
-	if !strings.Contains(outBuf.String(), "SV Print Doctor") {
+	if !strings.Contains(outBuf.String(), "SV Printer Doctor") {
 		t.Errorf("runCLI() output = %q, want to contain doctor banner", outBuf.String())
 	}
 }

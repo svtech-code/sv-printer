@@ -2,7 +2,7 @@
 
 # Política de Seguridad
 
-Nos tomamos en serio la seguridad de **SV Print**. Dado que este agente maneja acceso a red local, comunicación con impresoras y verificación de licencias, proteger su despliegue es nuestra máxima prioridad.
+Nos tomamos en serio la seguridad de **SV Printer**. Dado que este agente maneja acceso a red local, comunicación con impresoras y verificación de licencias, proteger su despliegue es nuestra máxima prioridad.
 
 ---
 
@@ -34,7 +34,7 @@ Responderemos a tu reporte dentro de **48 horas** y proporcionaremos una línea 
 
 ## 3. Modelo de Seguridad
 
-SV Print sigue estos principios de seguridad:
+SV Printer sigue estos principios de seguridad:
 
 - **Vinculación local únicamente:** el agente se vincula a `127.0.0.1` por defecto y nunca a `0.0.0.0`, previniendo acceso remoto a menos que se configure explícitamente.
 - **Autenticación por token:** todos los endpoints `/api/*` requieren `Authorization: Bearer <token>`. El token se genera en la primera ejecución y se almacena en el archivo de configuración.
@@ -48,13 +48,13 @@ SV Print sigue estos principios de seguridad:
 
 - **Claves privadas:** la clave privada de firma Ed25519 (`*.priv`, `.sv-license.priv`) está **gitignoreada** y nunca debe ser commiteada o compartida.
 - **Archivo de configuración:** el token de autenticación se almacena en el archivo JSON de configuración. Asegúrate de que el directorio de configuración tenga permisos de archivo apropiados.
-- **Sin telemetría:** SV Print no hace phone home ni transmite ningún dato externamente. Toda la verificación de licencias es offline.
+- **Sin telemetría:** SV Printer no hace phone home ni transmite ningún dato externamente. Toda la verificación de licencias es offline.
 
 ---
 
 ## 5. Alcance
 
-Esta política de seguridad cubre el binario del agente SV Print, su API HTTP y el sistema de verificación de licencias. No cubre:
+Esta política de seguridad cubre el binario del agente SV Printer, su API HTTP y el sistema de verificación de licencias. No cubre:
 
 - Dependencias de terceros (reportarlas upstream).
 - Seguridad física de impresoras.

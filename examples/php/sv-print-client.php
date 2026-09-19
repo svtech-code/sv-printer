@@ -1,7 +1,7 @@
 <?php
 
 /**
- * SV Print PHP client.
+ * SV Printer PHP client.
  *
  * Usage:
  *   $sv = new SVPrint("your-token");

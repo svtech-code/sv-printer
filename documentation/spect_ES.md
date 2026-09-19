@@ -1,4 +1,4 @@
-# SV Print
+# SV Printer
 
 > **Versión canónica:** la versión canónica de esta especificación es
 > [`spect.md`](./spect.md) (en inglés). Este documento es un espejo en español
@@ -6,7 +6,7 @@
 
 ## 1. Descripción general
 
-**SV Print** es un agente local multiplataforma desarrollado en **Go**, cuyo objetivo es permitir que aplicaciones web se comuniquen con impresoras térmicas conectadas al equipo del usuario.
+**SV Printer** es un agente local multiplataforma desarrollado en **Go**, cuyo objetivo es permitir que aplicaciones web se comuniquen con impresoras térmicas conectadas al equipo del usuario.
 
 El agente actúa como puente entre:
 
@@ -15,7 +15,7 @@ Aplicación Web
       │
       │ HTTP / WebSocket
       ▼
-SV Print
+SV Printer
       │
       ├── USB
       ├── Serial
@@ -301,7 +301,7 @@ arm64
 Distribución futura:
 
 ```text
-SV Print.app
+SV Printer.app
 .dmg
 .pkg
 ```
@@ -931,7 +931,7 @@ Durante la primera inicialización se debe generar un token.
 Ejemplo:
 
 ```text
-SV Print initialized.
+SV Printer initialized.
 
 Agent ID:
 agent_xxxxxxxxx
@@ -1051,7 +1051,7 @@ sv-printer printers
 Resultado:
 
 ```text
-SV Print
+SV Printer
 
 Impresoras
 ────────────────────────────────────────────
@@ -1096,12 +1096,12 @@ Si la experiencia de usuario demuestra que la configuración resulta compleja, s
 La arquitectura futura podría ser:
 
 ```text
-              SV Print UI
+              SV Printer UI
                   │
                Tauri
                   │
                   ▼
-            SV Print Core
+            SV Printer Core
                   │
         ┌─────────┼─────────┐
         │         │         │
@@ -1191,7 +1191,7 @@ sv-printer doctor
 Ejemplo:
 
 ```text
-SV Print Doctor
+SV Printer Doctor
 
 ✓ Sistema operativo detectado
 ✓ Configuración válida
@@ -1489,7 +1489,7 @@ Los cambios compatibles deben mantenerse dentro de la misma versión de API.
 El flujo esperado para un usuario será:
 
 ```text
-1. Instalar SV Print
+1. Instalar SV Printer
              │
              ▼
 2. Agent inicia automáticamente
@@ -1513,7 +1513,7 @@ El flujo esperado para un usuario será:
 8. Aplicación envía trabajo
              │
              ▼
-9. SV Print procesa cola
+9. SV Printer procesa cola
              │
              ▼
 10. Agent envía ESC/POS
@@ -1671,7 +1671,7 @@ Configuración amigable
 ## Fase 5
 
 ```text
-SV Print Cloud
+SV Printer Cloud
 Administración de dispositivos
 Configuración remota
 Licenciamiento

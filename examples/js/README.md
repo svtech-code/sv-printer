@@ -1,6 +1,6 @@
-# SV Print JavaScript/TypeScript Client
+# SV Printer JavaScript/TypeScript Client
 
-A lightweight fetch-based client for the SV Print local HTTP API.
+A lightweight fetch-based client for the SV Printer local HTTP API.
 
 ## Usage (browser)
 

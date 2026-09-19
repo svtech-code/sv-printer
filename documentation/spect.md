@@ -1,11 +1,11 @@
-# SV Print
+# SV Printer
 
 > **Canonical version:** This document is the canonical specification. The Spanish
 > version lives in [`spect_ES.md`](./spect_ES.md) and is a mirror for reference only.
 
 ## 1. Overview
 
-**SV Print** is a cross-platform local agent developed in **Go**, whose goal is to allow web applications to communicate with thermal printers connected to the user's machine.
+**SV Printer** is a cross-platform local agent developed in **Go**, whose goal is to allow web applications to communicate with thermal printers connected to the user's machine.
 
 The agent acts as a bridge between:
 
@@ -14,7 +14,7 @@ Web Application
       │
       │ HTTP / WebSocket
       ▼
-SV Print
+SV Printer
       │
       ├── USB
       ├── Serial
@@ -300,7 +300,7 @@ arm64
 Future distribution:
 
 ```text
-SV Print.app
+SV Printer.app
 .dmg
 .pkg
 ```
@@ -930,7 +930,7 @@ During the first initialization a token must be generated.
 Example:
 
 ```text
-SV Print initialized.
+SV Printer initialized.
 
 Agent ID:
 agent_xxxxxxxxx
@@ -1050,7 +1050,7 @@ sv-printer printers
 Result:
 
 ```text
-SV Print
+SV Printer
 
 Printers
 ────────────────────────────────────────────
@@ -1095,12 +1095,12 @@ If the user experience shows that configuration becomes complex, a graphical int
 The future architecture could be:
 
 ```text
-              SV Print UI
+              SV Printer UI
                   │
                Tauri
                   │
                   ▼
-            SV Print Core
+            SV Printer Core
                   │
         ┌─────────┼─────────┐
         │         │         │
@@ -1190,7 +1190,7 @@ sv-printer doctor
 Example:
 
 ```text
-SV Print Doctor
+SV Printer Doctor
 
 ✓ Operating system detected
 ✓ Valid configuration
@@ -1488,7 +1488,7 @@ Compatible changes must remain within the same API version.
 The expected flow for a user will be:
 
 ```text
-1. Install SV Print
+1. Install SV Printer
              │
              ▼
 2. Agent starts automatically
@@ -1512,7 +1512,7 @@ The expected flow for a user will be:
 8. Application sends job
              │
              ▼
-9. SV Print processes queue
+9. SV Printer processes queue
              │
              ▼
 10. Agent sends ESC/POS
@@ -1670,7 +1670,7 @@ Friendly configuration
 ## Phase 5
 
 ```text
-SV Print Cloud
+SV Printer Cloud
 Device management
 Remote configuration
 Licensing

@@ -1,6 +1,6 @@
-# SV Print Client Examples
+# SV Printer Client Examples
 
-Ready-to-use client libraries for integrating SV Print into your application.
+Ready-to-use client libraries for integrating SV Printer into your application.
 
 | Language | File | Dependencies |
 |---|---|---|

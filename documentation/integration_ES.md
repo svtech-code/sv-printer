@@ -2,7 +2,7 @@
 
 # Guía de Integración
 
-Cómo ejecutar SV Print, configurarlo e integrarlo con tu aplicación web
+Cómo ejecutar SV Printer, configurarlo e integrarlo con tu aplicación web
 usando la API HTTP local.
 
 ## Requisitos
@@ -23,7 +23,7 @@ go build -o sv-printer ./cmd/sv-printer
 ./sv-printer -token mysecret -port 9876 -printer "Caja 1@192.168.1.100:9100"
 ```
 
-En la primera ejecución sin `-token`, SV Print genera uno y lo imprime en stdout.
+En la primera ejecución sin `-token`, SV Printer genera uno y lo imprime en stdout.
 Guárdalo — lo necesitarás para cada petición a la API.
 
 ### Configuración

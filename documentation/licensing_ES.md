@@ -2,7 +2,7 @@
 
 # Licencias
 
-SV Print usa un modelo **freemium** con licencias firmadas offline usando Ed25519.
+SV Printer usa un modelo **freemium** con licencias firmadas offline usando Ed25519.
 
 ## Modos
 

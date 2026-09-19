@@ -2,7 +2,7 @@
 
 # Security Policy
 
-We take the security of **SV Print** seriously. Since this agent handles local network access, printer communication, and license verification, safeguarding its deployment is our top priority.
+We take the security of **SV Printer** seriously. Since this agent handles local network access, printer communication, and license verification, safeguarding its deployment is our top priority.
 
 ---
 
@@ -34,7 +34,7 @@ We will acknowledge your report within **48 hours** and provide a detailed timel
 
 ## 3. Security Model
 
-SV Print follows these security principles:
+SV Printer follows these security principles:
 
 - **Local binding only:** The agent binds to `127.0.0.1` by default and never to `0.0.0.0`, preventing remote access unless explicitly configured.
 - **Token authentication:** All `/api/*` endpoints require `Authorization: Bearer <token>`. The token is generated on first run and stored in the config file.
@@ -48,13 +48,13 @@ SV Print follows these security principles:
 
 - **Private keys:** The Ed25519 signing private key (`*.priv`, `.sv-license.priv`) is **gitignored** and must never be committed or shared.
 - **Config file:** The auth token is stored in the JSON config file. Ensure the config directory has appropriate file permissions.
-- **No telemetry:** SV Print does not phone home or transmit any data externally. All license verification is offline.
+- **No telemetry:** SV Printer does not phone home or transmit any data externally. All license verification is offline.
 
 ---
 
 ## 5. Scope
 
-This security policy covers the SV Print agent binary, its HTTP API, and the license verification system. It does not cover:
+This security policy covers the SV Printer agent binary, its HTTP API, and the license verification system. It does not cover:
 
 - Third-party dependencies (report upstream).
 - Physical printer security.

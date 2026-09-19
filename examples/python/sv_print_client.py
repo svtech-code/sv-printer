@@ -1,5 +1,5 @@
 """
-SV Print Python client.
+SV Printer Python client.
 
 Usage:
     from sv_print_client import SVPrint

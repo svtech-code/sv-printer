@@ -300,8 +300,8 @@ func TestSmoke_CLISubcommands(t *testing.T) {
 		args    []string
 		wantOut string
 	}{
-		{"version", []string{"version"}, "SV Print v0.1.0"},
-		{"status", []string{"status"}, "SV Print status: OK"},
+		{"version", []string{"version"}, "SV Printer v0.1.0"},
+		{"status", []string{"status"}, "SV Printer status: OK"},
 		{"device-id", []string{"device-id"}, ""},
 	}
 
