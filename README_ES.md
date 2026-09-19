@@ -11,8 +11,8 @@
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/Licencia-BSL--1.1-blue.svg" alt="Licencia"></a>
   <a href="https://golang.org/"><img src="https://img.shields.io/badge/Go-1.26+-00ADD8?logo=go" alt="Versión Go"></a>
-  <a href="https://github.com/svtech-code/sv-printerer/actions/workflows/ci.yml"><img src="https://github.com/svtech-code/sv-printerer/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
-  <a href="https://github.com/svtech-code/sv-printerer/releases"><img src="https://img.shields.io/github/v/release/svtech-code/sv-printerer" alt="Release"></a>
+  <a href="https://github.com/svtech-code/sv-printer/actions/workflows/ci.yml"><img src="https://github.com/svtech-code/sv-printer/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="https://github.com/svtech-code/sv-printer/releases"><img src="https://img.shields.io/github/v/release/svtech-code/sv-printer" alt="Release"></a>
   <a href="#licencia"><img src="https://img.shields.io/badge/Tier-Freemium-green.svg" alt="Freemium"></a>
   <a href="README.md"><img src="https://img.shields.io/badge/Lang-English-blue.svg" alt="English Version"></a>
 </p>
@@ -31,7 +31,7 @@
 
 ## Enlaces Rápidos
 
-> **¿Nuevo en SV Print?** Consulta la [Guía de Integración](./documentation/integration_ES.md) ([English](./documentation/integration.md)), la [Guía de Licencias](./documentation/licensing_ES.md) o los [Ejemplos de Clientes](./examples/) (JavaScript, Python, PHP).
+> **¿Nuevo en SV Printer?** Consulta la [Guía de Integración](./documentation/integration_ES.md) ([English](./documentation/integration.md)), la [Guía de Licencias](./documentation/licensing_ES.md) o los [Ejemplos de Clientes](./examples/) (JavaScript, Python, PHP).
 >
 > La especificación canónica vive en [`documentation/spect_ES.md`](./documentation/spect_ES.md) ([English](./documentation/spect.md)).
 
@@ -62,7 +62,7 @@ flowchart TD
         NODE[Node.js / Backend]
     end
 
-    subgraph Agent["SV Print (Agente Local)"]
+    subgraph Agent["SV Printer (Agente Local)"]
         API[HTTP API :9876]
         WS[WebSocket /events]
         Q[Cola de Impresión]
@@ -101,22 +101,50 @@ pkg/escpos/              Constructor de comandos ESC/POS
 
 ## Instalación y Configuración
 
-SV Print está diseñado para distribuirse como una aplicación nativa de escritorio que se ejecuta silenciosamente en segundo plano.
+SV Printer está diseñado para distribuirse como una aplicación nativa de escritorio que se ejecuta silenciosamente en segundo plano.
 
-### 1. Instalación
-Dependiendo de tu sistema operativo, puedes usar los instaladores oficiales:
-- **Windows**: Ejecuta `SV_Printer_Setup.exe`. Se instalará en `Archivos de Programa`, creará accesos directos y gestionará la desinstalación limpia.
-- **macOS**: Copia `SV Printer.app` a tu carpeta de Aplicaciones.
-- **Linux / CLI**: Compila y ejecuta el binario nativo directamente (`./sv-printer`).
+### 1. Descarga el paquete correcto
 
-### 2. Bandeja del Sistema (System Tray)
+Obtén la última versión desde la [página de Releases](https://github.com/svtech-code/sv-printer/releases/latest).
+
+**¿Quieres la app de escritorio (bandeja + logo) o el CLI headless?**
+
+| Plataforma | Descarga | Qué es |
+|:---|:---|:---|
+| **Windows** | `SV_Printer_Setup_windows_amd64.exe` | Instalador (app con bandeja) |
+| **macOS — Apple Silicon** | `SV_Printer_darwin_arm64.app.zip` | Bundle `.app` — **GUI con ícono** |
+| **macOS — Intel** | `SV_Printer_darwin_amd64.app.zip` | Bundle `.app` — **GUI con ícono** |
+| **macOS — universal** | `SV_Printer_darwin_universal.app.zip` | `.app` para ambas arquitecturas |
+| **Linux / servidor** | `sv-printer_<version>_linux_<arch>.tar.gz` | CLI headless (sin bandeja/ícono) |
+| **macOS CLI** | `sv-printer_<version>_darwin_<arch>.tar.gz` | CLI headless (sin bandeja/ícono) |
+| **Windows CLI** | `sv-printer_<version>_windows_<arch>.zip` | CLI headless (sin bandeja/ícono) |
+
+> **Consejo macOS:** los archivos `sv-printer_..._darwin_....tar.gz` contienen **solo el binario de línea de comandos** — Finder lo muestra como un archivo de terminal sin ícono. Si quieres la app con el logo, descarga el `SV_Printer_darwin_*.app.zip`.
+>
+> Verifica tu arquitectura con `uname -m`: `arm64` = Apple Silicon, `x86_64` = Intel.
+>
+> El build universal de macOS lo produce el pipeline de release mejorado y aparecerá a partir del próximo tag (`v0.1.0` solo incluye los bundles `arm64` y `amd64`).
+
+**Verificar la descarga (opcional):** compárala con `checksums.txt`:
+
+```bash
+shasum -a 256 -c checksums.txt        # macOS / Linux
+certutil -hashfile <file> SHA256      # Windows
+```
+
+### 2. Instalación
+- **Windows**: ejecuta `SV_Printer_Setup_windows_amd64.exe`. Se instalará en `Archivos de Programa`, creará accesos directos y gestionará la desinstalación limpia.
+- **macOS**: descomprime el `.app.zip` y arrastra `SV Printer.app` a tu carpeta de Aplicaciones. La app no está firmada, así que en el primer arranque usa **clic derecho → Abrir**, o ejecuta `xattr -dr com.apple.quarantine "SV Printer.app"`.
+- **Linux / CLI**: descomprime el archivo y ejecuta el binario directamente (`./sv-printer`).
+
+### 3. Bandeja del Sistema (System Tray)
 Una vez en ejecución, la aplicación no abrirá consolas molestas. Se alojará silenciosamente en la **bandeja del sistema** (cerca del reloj).
 Desde allí puedes:
 - **Iniciar con el sistema**: Configurar el auto-arranque nativo para que el agente inicie al prender el equipo.
 - **Copiar Token**: Copiar tu token de seguridad al portapapeles.
 - **Salir**: Apagar el servidor local.
 
-### 3. Configuración (CORS y Token)
+### 4. Configuración (CORS y Token)
 Para que tus aplicaciones web puedan imprimir, debes autorizar sus URLs. La primera vez que el programa se ejecuta, genera un Token de seguridad y un archivo `config.json`.
 
 **Rutas del archivo `config.json`:**
@@ -191,7 +219,7 @@ códigos de error están en la [Guía de Integración](./documentation/integrati
 
 ## Licencia
 
-SV Print usa un modelo **freemium** bajo la [Licencia Comercial 1.1](./LICENSE)
+SV Printer usa un modelo **freemium** bajo la [Licencia Comercial 1.1](./LICENSE)
 (BSL 1.1). El **11/09/2030** se convierte a la [Licencia Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0).
 
 | Modo | Activación | Marca de agua | Cuota diaria | Funciones pro |
@@ -260,7 +288,7 @@ MVP temprano. La especificación es la fuente de verdad; consulta la sección Ro
 
 ## Licencia
 
-SV Print se distribuye bajo una licencia freemium (ver [Licencia](#licencia)
+SV Printer se distribuye bajo una licencia freemium (ver [Licencia](#licencia)
 arriba y [`documentation/licensing_ES.md`](./documentation/licensing_ES.md)). El código fuente es
 proprietario; consulta al propietario del repositorio para términos de licencia
 y distribución.

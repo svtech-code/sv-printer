@@ -5,11 +5,28 @@ Releases are tagged `vX.Y.Z`.
 
 ## [Unreleased]
 
-## [0.1.0] - 2026-09-12
+### Fixed
+
+- **WebSocket origin verification**: the events endpoint no longer sets `InsecureSkipVerify`. Origins are now validated with `OriginPatterns` derived from `allowed_origins` (wildcard `*` still opts into permissive behavior).
+
+### Changed
+
+- **Atomic releases**: the release workflow now creates the release as a draft, attaches the native installers, and only then publishes it, preventing incomplete or duplicate releases on the same tag.
+- **Reproducible builds**: Go binaries are built with `-trimpath` and `mod_timestamp`, so the same commit yields identical checksums.
+- **Universal macOS app**: releases now include `SV_Printer_darwin_universal.app.zip` (amd64 + arm64 via `lipo`).
+- **Asset labels**: release assets are labelled as GUI application vs headless CLI.
+
+### Docs
+
+- **Download guide**: README (EN/ES) and `documentation/README.md` now explain which release asset to download per OS/architecture (GUI `.app.zip` vs headless CLI `.tar.gz`), how to verify checksums, and the macOS Gatekeeper step.
+- **Product name standardised**: "SV Printer" is now used consistently across code, docs, spec and license.
+- **Badges fixed**: CI/release badge URLs corrected (`sv-printerer` → `sv-printer`).
+
+## [0.1.0] - 2026-09-19
 
 ### Added
 
-- **Native Installers**: automated generation of `SV_Printer_Setup.exe` (NSIS) for Windows and `SV Printer.app` for macOS directly from GitHub Releases.
+- **Native Installers**: automated generation of `SV_Printer_Setup_windows_amd64.exe` (NSIS) for Windows and `SV_Printer_darwin_<arch>.app.zip` for macOS directly from GitHub Releases. Native installers are distributed as compressed archives; the macOS `.app` is unsigned, so first launch requires **right-click → Open** (or `xattr -dr com.apple.quarantine "SV Printer.app"`).
 - **System Tray GUI**: native status menu on macOS and Windows to easily copy the token, device ID, install licenses, and manage OS auto-start.
 - **Dynamic License UI**: the system tray dynamically adapts, hiding pro features ("Instalar Licencia", "Copiar ID") for users who already have an active PRO license.
 - **Native OS Auto-Start**: built-in registry injection on Windows and LaunchAgents on macOS to run the agent silently on boot.
@@ -39,11 +56,11 @@ Releases are tagged `vX.Y.Z`.
 ### Docs
 
 - **README redesigned**: hero with badges, Mermaid architecture diagram, key features table, bilingual (EN/ES).
-- **Spanish mirrors**: `README_ES.md`, `docs/integration_ES.md`, `docs/licensing_ES.md`.
+- **Spanish mirrors**: `README_ES.md`, `documentation/integration_ES.md`, `documentation/licensing_ES.md`.
 - **Repository standards**: `CONTRIBUTING`, `SECURITY`, `CODE_OF_CONDUCT` (EN/ES).
 - **License**: Business Source License 1.1 (converts to Apache 2.0 on 2030-09-11).
 
 ### Changed
 
-- **Product rename**: SV Print Agent → SV Print (identifier: `sv-printer`).
+- **Product rename**: SV Printer Agent → SV Printer (identifier: `sv-printer`).
 - **Config**: corrected `allowed-origins` example to `svtech.cl`.

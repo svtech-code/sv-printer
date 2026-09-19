@@ -13,6 +13,27 @@ This directory holds supporting project documentation.
 See [`../README.md`](../README.md) for build instructions, architecture overview,
 and the local API contract. Also available in [Español](../README_ES.md).
 
+## Which release to download
+
+Releases publish several artifacts. Pick the one that matches your goal and OS:
+
+| Goal | Platform | Asset |
+|:---|:---|:---|
+| Desktop app (tray + icon) | Windows | `SV_Printer_Setup_windows_amd64.exe` |
+| Desktop app (tray + icon) | macOS Apple Silicon | `SV_Printer_darwin_arm64.app.zip` |
+| Desktop app (tray + icon) | macOS Intel | `SV_Printer_darwin_amd64.app.zip` |
+| Desktop app (tray + icon) | macOS (any) | `SV_Printer_darwin_universal.app.zip` |
+| Headless CLI | Linux / macOS / Windows | `sv-printer_<version>_<os>_<arch>.tar.gz` (zip on Windows) |
+
+- The `.app.zip` archives contain the full `SV Printer.app` bundle (GUI with icon).
+- The `sv-printer_*.<os>_*` archives contain **only the headless CLI binary** (no icon).
+- Check your Mac architecture with `uname -m` (`arm64` = Apple Silicon, `x86_64` = Intel).
+- The macOS app is not code-signed; on first launch use **right-click → Open** or
+  `xattr -dr com.apple.quarantine "SV Printer.app"`.
+- Verify downloads with `checksums.txt` (`shasum -a 256 -c checksums.txt`).
+- Always download from the **Latest** release, never from a draft.
+- The universal macOS bundle is produced from the next tagged release onward (`v0.1.0` ships `arm64` and `amd64` only).
+
 ## Integration
 
 See [`integration.md`](./integration.md) ([Español](./integration_ES.md)) for full

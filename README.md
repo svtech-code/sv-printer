@@ -11,8 +11,8 @@
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-BSL--1.1-blue.svg" alt="License"></a>
   <a href="https://golang.org/"><img src="https://img.shields.io/badge/Go-1.26+-00ADD8?logo=go" alt="Go Version"></a>
-  <a href="https://github.com/svtech-code/sv-printerer/actions/workflows/ci.yml"><img src="https://github.com/svtech-code/sv-printerer/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
-  <a href="https://github.com/svtech-code/sv-printerer/releases"><img src="https://img.shields.io/github/v/release/svtech-code/sv-printerer" alt="Release"></a>
+  <a href="https://github.com/svtech-code/sv-printer/actions/workflows/ci.yml"><img src="https://github.com/svtech-code/sv-printer/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="https://github.com/svtech-code/sv-printer/releases"><img src="https://img.shields.io/github/v/release/svtech-code/sv-printer" alt="Release"></a>
   <a href="#licensing"><img src="https://img.shields.io/badge/Tier-Freemium-green.svg" alt="Freemium"></a>
   <a href="README_ES.md"><img src="https://img.shields.io/badge/Lang-Espa%C3%B1ol-orange.svg" alt="Versión en Español"></a>
 </p>
@@ -31,7 +31,7 @@
 
 ## Quick Links
 
-> **New to SV Print?** Check out the full [Integration Guide](./documentation/integration.md) ([Español](./documentation/integration_ES.md)), the [Licensing Guide](./documentation/licensing.md), or the [Client Examples](./examples/) (JavaScript, Python, PHP).
+> **New to SV Printer?** Check out the full [Integration Guide](./documentation/integration.md) ([Español](./documentation/integration_ES.md)), the [Licensing Guide](./documentation/licensing.md), or the [Client Examples](./examples/) (JavaScript, Python, PHP).
 >
 > The canonical specification lives in [`documentation/spect.md`](./documentation/spect.md) ([Español](./documentation/spect_ES.md)).
 
@@ -62,7 +62,7 @@ flowchart TD
         NODE[Node.js / Backend]
     end
 
-    subgraph Agent["SV Print (Local Agent)"]
+    subgraph Agent["SV Printer (Local Agent)"]
         API[HTTP API :9876]
         WS[WebSocket /events]
         Q[Print Queue]
@@ -101,22 +101,50 @@ pkg/escpos/              ESC/POS command builder
 
 ## Installation and Configuration
 
-SV Print is designed to be distributed as a native desktop application that runs silently in the background.
+SV Printer is designed to be distributed as a native desktop application that runs silently in the background.
 
-### 1. Installation
-Depending on your OS, you can use the official native installers:
-- **Windows**: Run `SV_Printer_Setup.exe`. It installs to `Program Files`, creates Start Menu shortcuts, and handles clean uninstallation.
-- **macOS**: Copy `SV Printer.app` to your Applications folder.
-- **Linux / CLI**: Compile and run the native binary directly (`./sv-printer`).
+### 1. Download the right package
 
-### 2. System Tray
+Grab the latest release from the [Releases page](https://github.com/svtech-code/sv-printer/releases/latest).
+
+**Do you want the desktop app (system tray + logo) or the headless CLI?**
+
+| Platform | Download | What it is |
+|:---|:---|:---|
+| **Windows** | `SV_Printer_Setup_windows_amd64.exe` | Installer (system tray app) |
+| **macOS — Apple Silicon** | `SV_Printer_darwin_arm64.app.zip` | `.app` bundle — **GUI with icon** |
+| **macOS — Intel** | `SV_Printer_darwin_amd64.app.zip` | `.app` bundle — **GUI with icon** |
+| **macOS — universal** | `SV_Printer_darwin_universal.app.zip` | `.app` for both architectures |
+| **Linux / server** | `sv-printer_<version>_linux_<arch>.tar.gz` | Headless CLI (no tray/icon) |
+| **macOS CLI** | `sv-printer_<version>_darwin_<arch>.tar.gz` | Headless CLI (no tray/icon) |
+| **Windows CLI** | `sv-printer_<version>_windows_<arch>.zip` | Headless CLI (no tray/icon) |
+
+> **macOS tip:** the `sv-printer_..._darwin_....tar.gz` archives contain **only the command-line binary** — Finder shows it as a plain terminal file (no icon). If you want the app with the logo, download the `SV_Printer_darwin_*.app.zip`.
+>
+> Check your architecture with `uname -m`: `arm64` = Apple Silicon, `x86_64` = Intel.
+>
+> The universal macOS build is produced by the improved release pipeline and appears from the next tagged release onward (`v0.1.0` only ships the `arm64` and `amd64` bundles).
+
+**Verify your download (optional):** compare it against `checksums.txt`:
+
+```bash
+shasum -a 256 -c checksums.txt        # macOS / Linux
+certutil -hashfile <file> SHA256      # Windows
+```
+
+### 2. Installation
+- **Windows**: run `SV_Printer_Setup_windows_amd64.exe`. It installs to `Program Files`, creates Start Menu and Desktop shortcuts, and handles clean uninstallation.
+- **macOS**: unzip the `.app.zip` and drag `SV Printer.app` into your Applications folder. The app is not code-signed, so on first launch use **right-click → Open**, or run `xattr -dr com.apple.quarantine "SV Printer.app"`.
+- **Linux / CLI**: extract the archive and run the binary directly (`./sv-printer`).
+
+### 3. System Tray
 Once running, the application will not open annoying consoles. It will dock silently in your **system tray** (near the clock).
 From the tray menu you can:
 - **Start with system**: Toggle native OS auto-start so the agent boots when the PC turns on.
 - **Copy Token**: Copy your security token to the clipboard.
 - **Quit**: Shut down the local server cleanly.
 
-### 3. Configuration (CORS and Token)
+### 4. Configuration (CORS and Token)
 For your web applications to print, you must authorize their URLs. The first time the program runs, it generates a security Token and a `config.json` file.
 
 **`config.json` File Paths:**
@@ -190,7 +218,7 @@ Full API reference, receipt schema, WebSocket events, and error codes are in the
 
 ## Licensing
 
-SV Print uses a **freemium** model under the [Business Source License 1.1](./LICENSE)
+SV Printer uses a **freemium** model under the [Business Source License 1.1](./LICENSE)
 (BSL 1.1). On **2030-09-11** it converts to [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).
 
 | Mode | Activation | Watermark | Daily quota | Pro features |
@@ -259,6 +287,6 @@ Early MVP. The spec is the source of truth; see the Roadmap section
 
 ## License
 
-SV Print is distributed under a freemium license (see [Licensing](#licensing)
+SV Printer is distributed under a freemium license (see [Licensing](#licensing)
 above and [`documentation/licensing.md`](./documentation/licensing.md)). The source is proprietary;
 see the repository owner for licensing and distribution terms.
