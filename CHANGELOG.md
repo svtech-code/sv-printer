@@ -5,6 +5,8 @@ Releases are tagged `vX.Y.Z`.
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-09-19
+
 ### Fixed
 
 - **WebSocket origin verification**: the events endpoint no longer sets `InsecureSkipVerify`. Origins are now validated with `OriginPatterns` derived from `allowed_origins` (wildcard `*` still opts into permissive behavior).
