@@ -9,7 +9,14 @@ Releases are tagged `vX.Y.Z`.
 
 ### Added
 
-- **Initial release of SV Print**: cross-platform local agent (Go) that lets web applications print to thermal printers (USB, serial, TCP) via a local HTTP API.
+- **Native Installers**: automated generation of `SV_Printer_Setup.exe` (NSIS) for Windows and `SV Printer.app` for macOS directly from GitHub Releases.
+- **System Tray GUI**: native status menu on macOS and Windows to easily copy the token, device ID, install licenses, and manage OS auto-start.
+- **Dynamic License UI**: the system tray dynamically adapts, hiding pro features ("Instalar Licencia", "Copiar ID") for users who already have an active PRO license.
+- **Native OS Auto-Start**: built-in registry injection on Windows and LaunchAgents on macOS to run the agent silently on boot.
+- **Windows System Printers**: native integration with Windows Spooler API (without CGO) to automatically discover and print to system-installed printers.
+- **CORS Support**: explicitly configurable `allowed_origins` in `config.json` (including `*` wildcard support) to secure web printing.
+- **Interactive License Generator**: developer script (`scripts/generate_license.sh`) to easily prompt for customer data and output `.key` files.
+- **Initial release of SV Printer**: cross-platform local agent (Go) that lets web applications print to thermal printers (USB, serial, TCP) via a local HTTP API.
 - **ESC/POS protocol**: full command set for thermal receipt printers (`pkg/escpos/`).
 - **Structured receipt API**: `POST /api/v1/print/receipt` accepts JSON with styled lines and generates ESC/POS.
 - **Raw ESC/POS API**: `POST /api/v1/print` for direct byte payloads (pro feature).
