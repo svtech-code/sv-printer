@@ -6,6 +6,16 @@ CONTENTS_DIR="${APP_DIR}/Contents"
 MACOS_DIR="${CONTENTS_DIR}/MacOS"
 RESOURCES_DIR="${CONTENTS_DIR}/Resources"
 
+# Version: explicit arg/env wins, otherwise nearest git tag (v-prefix stripped).
+VERSION="${1:-${VERSION:-}}"
+if [ -z "$VERSION" ]; then
+    VERSION=$(git describe --tags --abbrev=0 2>/dev/null | sed 's/^v//')
+fi
+if [ -z "$VERSION" ]; then
+    VERSION="0.0.0"
+fi
+echo "App version: ${VERSION}"
+
 if [ -f "sv-printer" ]; then
     echo "Using existing Go binary..."
 else
@@ -38,7 +48,7 @@ cat << PLIST > "${CONTENTS_DIR}/Info.plist"
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleShortVersionString</key>
-    <string>0.1.0</string>
+    <string>${VERSION}</string>
     <key>LSUIElement</key>
     <true/>
 </dict>

@@ -8,8 +8,55 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
-  release:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Abort if a release already exists for this tag
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ github.ref_name }}
+          REPO: ${{ github.repository }}
+        run: |
+          count=$(gh api "repos/$REPO/releases?per_page=100" \
+            --jq "[.[] | select(.tag_name == \"$TAG\")] | length")
+          if [ "$count" != "0" ]; then
+            echo "::error::A release already exists for $TAG. Delete it or bump the version."
+            exit 1
+          fi
+
+  goreleaser:
+    needs: guard
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-go@v7
+        with:
+          go-version-file: go.mod
+
+      - name: Compute version
+        id: version
+        run: echo "version=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+
+      - uses: goreleaser/goreleaser-action@v6
+        with:
+          distribution: goreleaser
+          version: "~> v2"
+          args: release --clean
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  windows-installer:
+    needs: goreleaser
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -23,47 +70,113 @@ jobs:
       - name: Install NSIS
         run: sudo apt-get update && sudo apt-get install -y nsis
 
-      - uses: goreleaser/goreleaser-action@v6
-        with:
-          distribution: goreleaser
-          version: "~> v2"
-          args: release --clean
+      - name: Build Windows installer
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build Native Installers
+          VERSION: ${{ needs.goreleaser.outputs.version }}
         run: |
-          # 1. Windows Installer (amd64)
-          WIN_BIN=$(find dist -path "*windows_amd64*" -name "sv-printer.exe" | head -n 1)
-          cp "$WIN_BIN" ./sv-printer.exe
+          GOOS=windows GOARCH=amd64 go build -trimpath \
+            -ldflags "-s -w -X main.Version=${VERSION}" \
+            -o sv-printer.exe ./cmd/sv-printer
+
+          MAJOR="${VERSION%%.*}"
+          REST="${VERSION#*.}"
+          MINOR="${REST%%.*}"
+          PATCH="${REST#*.}"
+
           cd scripts
-          makensis installer.nsi
+          makensis \
+            -DVERSIONMAJOR="$MAJOR" \
+            -DVERSIONMINOR="$MINOR" \
+            -DVERSIONBUILD="$PATCH" \
+            installer.nsi
           mv SV_Printer_Setup.exe ../SV_Printer_Setup_windows_amd64.exe
           cd ..
-          
-          # 2. macOS App (amd64)
-          MAC_AMD_BIN=$(find dist -path "*darwin_amd64*" -name "sv-printer" | head -n 1)
-          cp "$MAC_AMD_BIN" ./sv-printer
-          ./scripts/build_mac_app.sh
-          zip -r SV_Printer_darwin_amd64.app.zip "SV Printer.app"
-          rm -rf "SV Printer.app"
-          
-          # 3. macOS App (arm64)
-          MAC_ARM_BIN=$(find dist -path "*darwin_arm64*" -name "sv-printer" | head -n 1)
-          if [ -n "$MAC_ARM_BIN" ]; then
-            cp "$MAC_ARM_BIN" ./sv-printer
-            ./scripts/build_mac_app.sh
-            zip -r SV_Printer_darwin_arm64.app.zip "SV Printer.app"
-            rm -rf "SV Printer.app"
-          fi
 
-      - name: Upload Native Installers to Release
+      - name: Upload installer to draft release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ github.ref_name }}
+        run: gh release upload "$TAG" SV_Printer_Setup_windows_amd64.exe
+
+  macos-installer:
+    needs: goreleaser
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-go@v7
+        with:
+          go-version-file: go.mod
+
+      - name: Build macOS app bundles
+        env:
+          VERSION: ${{ needs.goreleaser.outputs.version }}
         run: |
-          TAG_NAME=${GITHUB_REF#refs/tags/}
-          UPLOAD_CMD="gh release upload $TAG_NAME SV_Printer_Setup_windows_amd64.exe SV_Printer_darwin_amd64.app.zip"
-          if [ -f "SV_Printer_darwin_arm64.app.zip" ]; then
-            UPLOAD_CMD="$UPLOAD_CMD SV_Printer_darwin_arm64.app.zip"
-          fi
-          $UPLOAD_CMD
+          set -euo pipefail
+          mkdir -p build
+
+          GOOS=darwin GOARCH=amd64 go build -trimpath \
+            -ldflags "-s -w -X main.Version=${VERSION}" \
+            -o build/sv-printer-amd64 ./cmd/sv-printer
+          GOOS=darwin GOARCH=arm64 go build -trimpath \
+            -ldflags "-s -w -X main.Version=${VERSION}" \
+            -o build/sv-printer-arm64 ./cmd/sv-printer
+          lipo -create -output build/sv-printer-universal \
+            build/sv-printer-amd64 build/sv-printer-arm64
+
+          build_app() {
+            cp "$1" sv-printer
+            ./scripts/build_mac_app.sh "$VERSION"
+            zip -r -q "$2" "SV Printer.app"
+            rm -rf "SV Printer.app"
+          }
+
+          build_app build/sv-printer-amd64 SV_Printer_darwin_amd64.app.zip
+          build_app build/sv-printer-arm64 SV_Printer_darwin_arm64.app.zip
+          build_app build/sv-printer-universal SV_Printer_darwin_universal.app.zip
+
+      - name: Upload app bundles to draft release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          gh release upload "$TAG" \
+            SV_Printer_darwin_amd64.app.zip \
+            SV_Printer_darwin_arm64.app.zip \
+            SV_Printer_darwin_universal.app.zip
+
+  publish:
+    needs: [windows-installer, macos-installer]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Label assets
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ github.ref_name }}
+          REPO: ${{ github.repository }}
+        run: |
+          release_id=$(gh api "repos/$REPO/releases?per_page=100" \
+            --jq ".[] | select(.tag_name == \"$TAG\") | .id" | head -n 1)
+
+          gh api "repos/$REPO/releases/$release_id/assets?per_page=100" \
+            --jq '.[] | "\(.id)\t\(.name)"' | while IFS=$'\t' read -r id name; do
+              case "$name" in
+                *.app.zip)    label="GUI app (macOS)" ;;
+                *.exe)        label="GUI app (Windows installer)" ;;
+                sv-printer_*) label="Headless CLI" ;;
+                sv-license_*) label="License CLI" ;;
+                checksums.txt) label="Checksums" ;;
+                *)            label="" ;;
+              esac
+              if [ -n "$label" ]; then
+                gh api -X PATCH "repos/$REPO/releases/assets/$id" -f label="$label" >/dev/null
+              fi
+            done
+
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ github.ref_name }}
+        run: gh release edit "$TAG" --draft=false --latest

@@ -1,13 +1,30 @@
 !define APPNAME "SV Printer"
 !define COMPANYNAME "SV Tech"
 !define DESCRIPTION "Cross-platform local agent for thermal printing"
+
+!ifndef VERSIONMAJOR
 !define VERSIONMAJOR 0
+!endif
+!ifndef VERSIONMINOR
 !define VERSIONMINOR 1
+!endif
+!ifndef VERSIONBUILD
 !define VERSIONBUILD 0
+!endif
+
+!define VERSION "${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONBUILD}"
 
 Name "${APPNAME}"
 OutFile "SV_Printer_Setup.exe"
 InstallDir "$PROGRAMFILES64\${COMPANYNAME}\${APPNAME}"
+
+VIProductVersion "${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONBUILD}.0"
+VIFileVersion "${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONBUILD}.0"
+VIAddVersionKey "ProductName" "${APPNAME}"
+VIAddVersionKey "CompanyName" "${COMPANYNAME}"
+VIAddVersionKey "FileDescription" "${DESCRIPTION}"
+VIAddVersionKey "FileVersion" "${VERSION}"
+VIAddVersionKey "ProductVersion" "${VERSION}"
 
 RequestExecutionLevel admin
 

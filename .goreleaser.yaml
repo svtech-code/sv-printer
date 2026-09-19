@@ -6,6 +6,9 @@ builds:
     binary: sv-printer
     env:
       - CGO_ENABLED=0
+    flags:
+      - -trimpath
+    mod_timestamp: "{{ .CommitTimestamp }}"
     ldflags:
       - -s -w -X main.Version={{.Version}} {{ if eq .Os "windows" }}-H=windowsgui{{ end }}
     goos:
@@ -21,6 +24,9 @@ builds:
     binary: sv-license
     env:
       - CGO_ENABLED=0
+    flags:
+      - -trimpath
+    mod_timestamp: "{{ .CommitTimestamp }}"
     ldflags:
       - -s -w
     goos:
@@ -30,6 +36,9 @@ builds:
     goarch:
       - amd64
       - arm64
+
+release:
+  draft: true
 
 archives:
   - id: sv-printer

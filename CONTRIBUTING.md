@@ -1,8 +1,8 @@
-# Contributing to SV Print
+# Contributing to SV Printer
 
-Thank you for your interest in contributing to **SV Print**! This guide outlines the workflow and standards.
+Thank you for your interest in contributing to **SV Printer**! This guide outlines the workflow and standards.
 
-> **Just want to install SV Print?** See the [Integration Guide](./documentation/integration.md) for build instructions.
+> **Just want to install SV Printer?** See the [Integration Guide](./documentation/integration.md) for build instructions.
 
 ---
 
@@ -85,6 +85,22 @@ If any of these fail, fix the issues first, re-run, and only then present the co
 
 ---
 
-## 6. License
+## 6. Releases
 
-SV Print is licensed under the [Business Source License 1.1](./LICENSE) (BSL 1.1). By contributing, you agree that your contributions will be licensed under the same terms.
+Releases are automated on tag push (`vX.Y.Z`) and are atomic and reproducible:
+
+1. **`goreleaser`** builds the cross-platform CLI archives and `checksums.txt` and opens the release as a **draft**.
+2. **macOS** builds per-architecture and universal `.app` bundles; **Windows** builds the NSIS installer. Both upload their artifacts to the draft.
+3. A final job labels the assets (GUI app vs headless CLI) and publishes the draft as the latest release.
+
+Guidelines:
+
+- **Never re-run the workflow on an existing tag.** The `guard` job aborts if a release already exists — bump the version and push a new tag instead.
+- Builds use `-trimpath` and a deterministic `mod_timestamp`, so the same commit yields identical checksums.
+- If a release fails midway, delete the draft release before re-tagging.
+
+---
+
+## 7. License
+
+SV Printer is licensed under the [Business Source License 1.1](./LICENSE) (BSL 1.1). By contributing, you agree that your contributions will be licensed under the same terms.
