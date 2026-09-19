@@ -44,6 +44,7 @@ func RunTray(token string, configPath string, onReady func(), onExit func()) {
 				select {
 				case <-mCopyToken.ClickedCh:
 					clipboard.WriteAll(token)
+					dialog.Message("Token copiado al portapapeles:\n%s", token).Title("Token de Seguridad").Info()
 				case <-mCopyID.ClickedCh:
 					id, err := deviceid.ID()
 					if err == nil {
