@@ -4,7 +4,7 @@ import "os"
 
 const (
 	appName     = "sv-printer"
-	displayName = "SV Printer Agent"
+	displayName = "SV Printer"
 )
 
 func getExecPath() (string, error) {
