@@ -8,7 +8,7 @@ import (
 
 // RunTray starts the background agent without a system tray
 // because CGO is disabled on this platform build.
-func RunTray(token string, configPath string, onReady func(), onExit func()) {
+func RunTray(token string, configPath string, isPro bool, onReady func(), onExit func()) {
 	slog.Info("System tray GUI is disabled in this build (CGO disabled). Running in headless mode.")
 
 	// Start the background process

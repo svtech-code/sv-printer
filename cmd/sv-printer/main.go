@@ -29,6 +29,7 @@ import (
 	"sv-printer/internal/infrastructure/usb"
 	"sv-printer/internal/interfaces/gui"
 	apphttp "sv-printer/internal/interfaces/http"
+	"sv-printer/internal/license"
 	"sv-printer/internal/licensing"
 	"sv-printer/internal/receipt"
 )
@@ -58,7 +59,12 @@ func main() {
 			}
 		} else {
 			done := make(chan struct{})
-			gui.RunTray(cfg.Token, cfg.Path, func() {
+
+			// Determine license state for GUI
+			licState := licensing.FromFile(cfg.LicensePath)
+			isPro := licState.Tier() == license.TierFull
+
+			gui.RunTray(cfg.Token, cfg.Path, isPro, func() {
 				if err := runAgentWithConfig(ctx, cfg, os.Stdout); err != nil {
 					slog.Error("agent error", "error", err)
 					showFatalError("SV Printer - Error", "The agent stopped unexpectedly:\n"+err.Error())

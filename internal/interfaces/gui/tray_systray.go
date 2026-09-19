@@ -18,15 +18,30 @@ import (
 // RunTray starts the system tray on the main OS thread.
 // It calls onReady when the tray is drawn, which should start the background agent.
 // It calls onExit when the user clicks "Salir" to shut down the agent.
-func RunTray(token string, configPath string, onReady func(), onExit func()) {
+func RunTray(token string, configPath string, isPro bool, onReady func(), onExit func()) {
 	systray.Run(
 		func() {
 			systray.SetIcon(iconData)
 			systray.SetTooltip("SV Printer Agent")
 
+			// License Status Header
+			if isPro {
+				mStatus := systray.AddMenuItem("Licencia: PRO", "Aplicación activada")
+				mStatus.Disable()
+			} else {
+				mStatus := systray.AddMenuItem("Licencia: FREE", "Modo de prueba limitado")
+				mStatus.Disable()
+			}
+			systray.AddSeparator()
+
 			mCopyToken := systray.AddMenuItem("Copiar Token", "Copia el token de seguridad al portapapeles")
 			mCopyID := systray.AddMenuItem("Copiar ID del Equipo", "Copia el ID único para generar una licencia")
 			mInstallLic := systray.AddMenuItem("Instalar Licencia", "Seleccionar archivo license.key")
+
+			if isPro {
+				mCopyID.Hide()
+				mInstallLic.Hide()
+			}
 			systray.AddSeparator()
 
 			// Initial autostart status
