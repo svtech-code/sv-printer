@@ -17,7 +17,7 @@ func TestNewID(t *testing.T) {
 
 func TestNewIDUnique(t *testing.T) {
 	seen := map[string]bool{}
-	for i := 0; i < 1000; i++ {
+	for i := 0; i < 10000; i++ {
 		id := NewID()
 		if seen[id] {
 			t.Fatalf("duplicate ID %q", id)

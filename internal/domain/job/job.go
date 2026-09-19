@@ -26,7 +26,7 @@ type PrintJob struct {
 }
 
 func NewID() string {
-	b := make([]byte, 3)
+	b := make([]byte, 16)
 	if _, err := rand.Read(b); err != nil {
 		return "job_" + strconv.FormatInt(time.Now().UnixNano(), 36)
 	}

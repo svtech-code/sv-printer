@@ -150,7 +150,7 @@ curl -X POST -H "Authorization: Bearer $TOKEN" \
 Respuesta (201 Created):
 
 ```json
-{ "job_id": "job_a1b2c3", "status": "queued" }
+{ "job_id": "job_f3a9c1d2e4b5061789a0b2c3d4e5f607", "status": "queued" }
 ```
 
 ## Impresión ESC/POS raw (pro)
@@ -173,7 +173,7 @@ Respuesta (201 Created):
 
 ```json
 {
-  "id": "job_a1b2c3",
+  "id": "job_f3a9c1d2e4b5061789a0b2c3d4e5f607",
   "printer_id": "net-192.168.1.100:9100",
   "created_at": "2026-09-11T12:00:00Z",
   "status": "completed"
