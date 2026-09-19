@@ -30,3 +30,7 @@ sv-license.priv
 .agents/
 AGENTS.md
 .sv-memoryignore
+
+# Archivos secretos y licencias generadas localmente
+.env.secret
+licenses/
