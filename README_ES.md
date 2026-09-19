@@ -123,7 +123,7 @@ Obtén la última versión desde la [página de Releases](https://github.com/svt
 >
 > Verifica tu arquitectura con `uname -m`: `arm64` = Apple Silicon, `x86_64` = Intel.
 >
-> El build universal de macOS lo produce el pipeline de release mejorado y aparecerá a partir del próximo tag (`v0.1.0` solo incluye los bundles `arm64` y `amd64`).
+> El build universal de macOS está incluido desde `v0.1.1`.
 
 **Verificar la descarga (opcional):** compárala con `checksums.txt`:
 
@@ -188,6 +188,7 @@ go build -o sv-printer ./cmd/sv-printer
 | `sv-printer logs` | Seguir archivo de log |
 | `sv-printer doctor` | Ejecutar diagnósticos |
 | `sv-printer device-id` | Mostrar huella del dispositivo (para vinculación de licencia) |
+| `sv-printer service <install\|uninstall\|status>` | Gestionar el auto-arranque al iniciar sesión |
 
 ---
 

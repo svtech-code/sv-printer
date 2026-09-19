@@ -1224,47 +1224,38 @@ Acciones sugeridas:
 
 # 31. Instalación como servicio
 
-El agente debe iniciarse automáticamente con el sistema operativo.
+El agente debe iniciarse automáticamente con el sistema operativo. El auto-arranque
+se gestiona con `sv-printer service install|uninstall|status`.
 
 ## Windows
 
-Utilizar:
-
-```text
-Windows Service
-```
+Un valor llamado `sv-printer` bajo la clave Run del usuario actual
+(`HKCU\Software\Microsoft\Windows\CurrentVersion\Run`).
 
 ## Linux
 
-Utilizar:
-
-```text
-systemd
-```
+Una entrada de autostart XDG (`~/.config/autostart/sv-printer.desktop`).
 
 ## macOS
 
-Utilizar:
-
-```text
-launchd
-```
+Un LaunchAgent por usuario (`~/Library/LaunchAgents/com.svtech.sv-printer.plist`).
 
 ---
 
 # 32. Ciclo de vida
 
-La CLI debe permitir:
+La CLI expone la gestión del auto-arranque:
 
 ```bash
-sv-printer service start
+sv-printer service install
 
-sv-printer service stop
-
-sv-printer service restart
+sv-printer service uninstall
 
 sv-printer service status
 ```
+
+Iniciar, detener y reiniciar el agente en ejecución
+(`sv-printer service start|stop|restart`) está planificado para una versión futura.
 
 La implementación específica de cada sistema operativo debe estar aislada de la lógica principal.
 

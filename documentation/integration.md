@@ -56,6 +56,7 @@ The config file is JSON (`sv-printer config` shows its path).
 | `sv-printer logs` | Tail log file |
 | `sv-printer doctor` | Run diagnostics |
 | `sv-printer device-id` | Show device fingerprint (for license binding) |
+| `sv-printer service <install\|uninstall\|status>` | Manage auto-start at login |
 
 ## Security model
 
@@ -264,7 +265,7 @@ All errors follow a consistent JSON envelope:
 Without a license (trial mode):
 
 - Receipts are prefixed and suffixed with
-  `*** SV PRINT — LICENCIA DE PRUEBA ***`.
+  `*** SV PRINTER — LICENCIA DE PRUEBA ***` and `www.svtech.cl`.
 - You can print up to **50 receipts per day** (quota resets at midnight).
 - `POST /api/v1/print` (raw ESC/POS) and `GET /api/v1/events` (WebSocket)
   are **blocked** (403 `LICENSE_REQUIRED`).

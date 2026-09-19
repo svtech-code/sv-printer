@@ -12,7 +12,7 @@ SV Printer uses a **freemium** model with offline, Ed25519-signed licenses.
 | **Beta** | signed license with `expiry` | no | unlimited | depends on `features` |
 | **Full** | signed license | no | unlimited | depends on `features` |
 
-The trial watermark is `*** SV PRINT — LICENCIA DE PRUEBA ***`.
+The trial watermark is `*** SV PRINTER — LICENCIA DE PRUEBA ***` followed by `www.svtech.cl`.
 
 ## Gated features
 
@@ -103,6 +103,21 @@ go run ./cmd/sv-license sign \
   -fingerprint "3f8c2a..." \
   > license.key
 ```
+
+## Maintainer-only: interactive generator
+
+For local, interactive issuance there is a convenience wrapper,
+`scripts/generate_license.sh`, which reads the private key from `.sv-license.priv`
+(project root) instead of the `SV_LICENSE_KEY` environment variable:
+
+```bash
+./scripts/generate_license.sh
+# prompts for the customer name and device ID
+# -> writes licenses/<customer>_license.key
+```
+
+- `.sv-license.priv` and `licenses/` are **gitignored** and must never be committed or shared.
+- This script is for **maintainers only**; end users just receive and install the resulting `license.key`.
 
 ## Security notes
 

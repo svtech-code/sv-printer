@@ -5,6 +5,17 @@ Releases are tagged `vX.Y.Z`.
 
 ## [Unreleased]
 
+### Fixed
+
+- **Autostart display name**: the OS registration now shows `SV Printer` instead of `SV Printer Agent`.
+
+### Docs
+
+- **Service subcommand**: documented `sv-printer service <install|uninstall|status>` in README (EN/ES) and the integration guide; reconciled spec §31-32 with the actual auto-start behavior (XDG/LaunchAgent/Run key), leaving `start|stop|restart` as roadmap.
+- **Trial watermark**: corrected to `*** SV PRINTER — LICENCIA DE PRUEBA ***` + `www.svtech.cl`.
+- **License generator**: added a maintainer-only note for `scripts/generate_license.sh` and `.sv-license.priv`.
+- **Download guide**: clarified that the universal macOS bundle is included since `v0.1.1`.
+
 ## [0.1.1] - 2026-09-19
 
 ### Fixed

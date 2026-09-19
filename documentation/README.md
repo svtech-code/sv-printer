@@ -32,7 +32,7 @@ Releases publish several artifacts. Pick the one that matches your goal and OS:
   `xattr -dr com.apple.quarantine "SV Printer.app"`.
 - Verify downloads with `checksums.txt` (`shasum -a 256 -c checksums.txt`).
 - Always download from the **Latest** release, never from a draft.
-- The universal macOS bundle is produced from the next tagged release onward (`v0.1.0` ships `arm64` and `amd64` only).
+- The universal macOS bundle is included since `v0.1.1`.
 
 ## Integration
 

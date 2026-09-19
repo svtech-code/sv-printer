@@ -123,7 +123,7 @@ Grab the latest release from the [Releases page](https://github.com/svtech-code/
 >
 > Check your architecture with `uname -m`: `arm64` = Apple Silicon, `x86_64` = Intel.
 >
-> The universal macOS build is produced by the improved release pipeline and appears from the next tagged release onward (`v0.1.0` only ships the `arm64` and `amd64` bundles).
+> The universal macOS build is included since `v0.1.1`.
 
 **Verify your download (optional):** compare it against `checksums.txt`:
 
@@ -188,6 +188,7 @@ go build -o sv-printer ./cmd/sv-printer
 | `sv-printer logs` | Tail log file |
 | `sv-printer doctor` | Run diagnostics |
 | `sv-printer device-id` | Show device fingerprint (for license binding) |
+| `sv-printer service <install\|uninstall\|status>` | Manage auto-start at login |
 
 ---
 

@@ -56,6 +56,7 @@ El archivo de configuración es JSON (`sv-printer config` muestra su ruta).
 | `sv-printer logs` | Seguir archivo de log |
 | `sv-printer doctor` | Ejecutar diagnósticos |
 | `sv-printer device-id` | Mostrar huella del dispositivo (para vinculación de licencia) |
+| `sv-printer service <install\|uninstall\|status>` | Gestionar el auto-arranque al iniciar sesión |
 
 ## Modelo de seguridad
 
@@ -267,7 +268,7 @@ Todos los errores siguen un envoltorio JSON consistente:
 Sin una licencia (modo trial):
 
 - Los recibos se prefijan y sufijan con
-  `*** SV PRINT — LICENCIA DE PRUEBA ***`.
+  `*** SV PRINTER — LICENCIA DE PRUEBA ***` y `www.svtech.cl`.
 - Puedes imprimir hasta **50 recibos por día** (la cuota se reinicia a medianoche).
 - `POST /api/v1/print` (ESC/POS raw) y `GET /api/v1/events` (WebSocket)
   están **bloqueados** (403 `LICENSE_REQUIRED`).
