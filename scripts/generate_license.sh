@@ -3,19 +3,18 @@
 # Asegurarse de estar en la raíz del proyecto
 cd "$(dirname "$0")/.." || exit
 
-# 1. Verificar que exista el archivo de secretos
-if [ ! -f ".env.secret" ]; then
-    echo "❌ Error: No se encontró el archivo .env.secret"
-    echo "Por favor crea un archivo llamado .env.secret en la raíz del proyecto con el siguiente contenido:"
-    echo "SV_LICENSE_KEY=tu_clave_privada_aqui"
+# 1. Verificar que exista el archivo de la clave
+if [ ! -f ".sv-license.priv" ]; then
+    echo "❌ Error: No se encontró el archivo .sv-license.priv"
+    echo "Asegúrate de que tu clave privada esté guardada en el archivo .sv-license.priv en la raíz del proyecto."
     exit 1
 fi
 
-# Cargar la clave privada
-source .env.secret
+# Cargar la clave privada leyendo el archivo
+export SV_LICENSE_KEY=$(cat .sv-license.priv | tr -d ' \n\r')
 
 if [ -z "$SV_LICENSE_KEY" ]; then
-    echo "❌ Error: SV_LICENSE_KEY no está definida en .env.secret"
+    echo "❌ Error: El archivo .sv-license.priv está vacío."
     exit 1
 fi
 
